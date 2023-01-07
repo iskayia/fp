@@ -32,6 +32,7 @@ Route::get('logout', [PelangganController::class, 'logout'])->name('logout');
 // });
 
 Route::get('beli',[EcomController::class, 'beli'])->name('beli');
+Route::get('beli_langsung',[EcomController::class, 'beli_langsung'])->name('beli_langsung');
 Route::get('keranjang',[EcomController::class, 'keranjang'])->name('keranjang');
 Route::get('add_keranjang/{id}',[EcomController::class, 'add_keranjang'])->name('add_keranjang');
 Route::get('ecom',[EcomController::class, 'ecom'])->name('ecom');

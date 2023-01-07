@@ -7,6 +7,12 @@
         $id = data.getAttribute('id')
         console.log($harga * $qty)
         $('#jumharga'+$id).html($harga * $qty)
+        $subtotal = 0;
+        $('.harga').each(function(x, y){
+            console.log($(this).text())
+            $subtotal += parseInt($(this).text())
+        })
+        $('#subtotal').html($subtotal)
     }
 </script>
 <section class="page-section " id="services" style="background-color:#FEFCF3; height:100%;">
@@ -48,9 +54,9 @@
                             <td>
                            <input onchange="hitung(this)" id="{{$k->id_produk}}"  data-harga="{{$k->harga_produk}}" type="number" value="{{$k->jumlah}}" min='1' style="width:45px;">
                             </td>
-                            <td >Rp.{{$k->harga_produk}}</td>
+                            <td >{{$k->harga_produk}}</td>
                            
-                            <td id='jumharga{{$k->id_produk}}'>Rp.{{$k->harga_produk * $k->jumlah}}</td>
+                            <td class="harga" id='jumharga{{$k->id_produk}}'>{{$k->harga_produk * $k->jumlah}}</td>
                             <td><button class="btn btn-danger"><ion-icon name="trash-outline"></ion-icon></button></td>
                         </tr>
                         @empty
@@ -61,7 +67,7 @@
                     <tr>
                     <td colspan="4" class="text-right"></td>
                     <td><b>Subtotal</b></td>
-                    <td>Rp. {{$subtotal}}</td>
+                    <td>Rp. <span id="subtotal">{{$subtotal}}</span></td>
                     <td></td>
                     </tr>
                     </tbody>

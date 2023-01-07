@@ -35,7 +35,16 @@ class EcomController extends Controller
     }
 
     public function beli(){
-        return view('ecom/beli');
+        $keranjang= Keranjang::latest()
+        ->join('produk','produk.id_produk','=', 'keranjang.id_produk')
+        ->select('keranjang.*', 'produk.harga_produk','produk.nama_produk','produk.gambar_produk')
+        ->where('keranjang.id_pelanggan',Auth::id())
+        ->get();
+        return view('ecom/beli',['keranjang'=>$keranjang]);
+    }
+    
+    public function beli_langsung(){
+        
     }
 
     public function keranjang(){

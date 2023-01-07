@@ -6,7 +6,7 @@
         $harga = data.getAttribute('data-harga');
         $id = data.getAttribute('id')
         console.log($harga * $qty)
-        
+        $('#jumharga'+$id).html($harga * $qty)
     }
 </script>
 <section class="page-section " id="services" style="background-color:#FEFCF3; height:100%;">

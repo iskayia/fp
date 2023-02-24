@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\miminController;
 use App\Http\Controllers\EcomController;
 use App\Http\Controllers\PelangganController;
 use Illuminate\Support\Facades\Route;
@@ -36,5 +37,7 @@ Route::get('beli_langsung',[EcomController::class, 'beli_langsung'])->name('beli
 Route::get('keranjang',[EcomController::class, 'keranjang'])->name('keranjang');
 Route::get('add_keranjang/{id}',[EcomController::class, 'add_keranjang'])->name('add_keranjang');
 Route::get('ecom',[EcomController::class, 'ecom'])->name('ecom');
+
+Route::get('mimin',[MiminController::class, 'mimin'])->name('mimin');
 
 

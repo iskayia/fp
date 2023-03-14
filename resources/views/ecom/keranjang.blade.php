@@ -40,7 +40,7 @@
                             $subtotal=0;
                             $no=0;
                         @endphp
-                    @forelse ($keranjang as $k)
+                        @forelse ($keranjang as $k)
                         @php
                         $subtotal+= $k->harga_produk * $k->jumlah;
                         $no++;

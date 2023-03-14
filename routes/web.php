@@ -28,10 +28,6 @@ Route::get('login', [PelangganController::class, 'login'])->name('login');
 Route::post('login', [PelangganController::class, 'login_action'])->name('login.action');
 Route::get('logout', [PelangganController::class, 'logout'])->name('logout');
 
-// Route::get('/jual', function(){
-//     return view('tampilan_jual');
-// });
-
 Route::get('beli',[EcomController::class, 'beli'])->name('beli');
 Route::get('beli_langsung',[EcomController::class, 'beli_langsung'])->name('beli_langsung');
 Route::get('keranjang',[EcomController::class, 'keranjang'])->name('keranjang');
@@ -39,5 +35,17 @@ Route::get('add_keranjang/{id}',[EcomController::class, 'add_keranjang'])->name(
 Route::get('ecom',[EcomController::class, 'ecom'])->name('ecom');
 
 Route::get('mimin',[MiminController::class, 'mimin'])->name('mimin');
+Route::get('data',[MiminController::class, 'data'])->name('data');
+
+Route::get('add_data',[MiminController::class, 'add_data'])->name('add_data');
+Route::get('pembelian',[MiminController::class, 'pembelian'])->name('pembelian');
+Route::get('add_pembelian',[MiminController::class, 'add_pembelian'])->name('add_pembelian');
+Route::get('pengeluaran',[MiminController::class, 'pengeluaran'])->name('pengeluaran');
+Route::get('add_pengeluaran',[MiminController::class, 'add_pengeluaran'])->name('add_pengeluaran');
+Route::get('pelanggan',[MiminController::class, 'pelanggan'])->name('pelanggan');
+Route::get('supplier',[MiminController::class, 'supplier'])->name('supplier');
+Route::get('add_supplier',[MiminController::class, 'add_supplier'])->name('add_supplier');
+Route::get('laporan',[MiminController::class, 'laporan'])->name('laporan');
+
 
 

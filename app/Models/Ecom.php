@@ -12,8 +12,7 @@ class Ecom extends Model
 
     protected $table= 'produk';
     protected $primaryKey = 'id_produk';
-    protected $fillable= ['nama_produk', 'harga_produk','gambar_produk'];
-
+    protected $fillable= ['id_supplier','nama_produk','stok', 'harga_produk','gambar_produk'];
 
 
 }

@@ -1,5 +1,5 @@
 <!-- footernih -->
-<footer class="footer" style="position: absolute; bottom: 0; width: -webkit-fill-available;">
+<footer class="footer" style=" width: -webkit-fill-available;">
         <div class="container-fluid">
           <div class="row">
             <nav class="footer-nav">

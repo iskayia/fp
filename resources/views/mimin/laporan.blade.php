@@ -9,44 +9,43 @@
                     <h4 class="card-title">Pilih Jenis Laporan</h4>
                 </div>
                 <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead class=" text-primary">
-                                <th>
-                                    Name
-                                </th>
-                                <th>
-                                    Country
-                                </th>
-                                <th>
-                                    City
-                                </th>
-                                <th class="text-right">
-                                    Salary
-                                </th>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        Dakota Rice
-                                    </td>
-                                    <td>
-                                        Niger
-                                    </td>
-                                    <td>
-                                        Oud-Turnhout
-                                    </td>
-                                    <td class="text-right">
-                                        $36,738
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                    <h5>Laporan Transaksi :</h5>
+                    <form action="">
+                            <div class="col-md-6 col-sm-12">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                    <label class="form-check-label" for="flexRadioDefault1">
+                                        Pembelian
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                        Penjualan
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                        Keuangan
+                                    </label>
+                                </div>
+                            </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Tanggal Entri</label>
+                                <input class="form-control date-picker" name="tgl_pembelian[]" placeholder="Masukkan tanggal entri" type="text">
+                            </div>
+                        </div>
+                        <div class="update ml-auto mr-auto text-center">
+                                    <button type="submit" class="btn btn-primary btn-round">Simpan</button>
+                                </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </div>
 
 

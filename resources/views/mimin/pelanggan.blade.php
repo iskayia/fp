@@ -20,9 +20,12 @@
                                 <th>Aksi</th>
                             </thead>
                             <tbody>
+                                @php 
+                                $n = 1;
+                                @endphp
                                 @foreach($pelanggan as $p)
                                 <tr>
-                                    <td>{{$p->id_pelanggan}}</td>
+                                    <td>{{$n++}}</td>
                                     <td>{{$p->nama_pelanggan}}</td>
                                     <td>{{$p->email_pelanggan}}</td>
                                     <td>{{$p->kontak_pelanggan}}</td>

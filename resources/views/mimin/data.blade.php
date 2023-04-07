@@ -153,14 +153,19 @@
                                             <th>Aksi</th>
                                         </thead>
                                         <tbody>
+                                            @php 
+                                            $no = 1;
+                                            @endphp
                                             @foreach($produk as $p)
                                             <tr>
-                                                <td>{{$p->id_produk}}</td>
+                                                <td>{{$no++}}</td>
                                                 <td>{{$p->nama_supplier}}</td>
                                                 <td>{{$p->nama_produk}}</td>
                                                 <td>{{$p->stok}}</td>
                                                 <td>{{$p->harga_produk}}</td>
-                                                <td>{{$p->gambar_produk}}</td>
+                                                <td>
+                                                    <img src="gambar_produk/{{$p->gambar_produk}}" width="100" height="100" alt="{{$p->gambar_produk}}">
+                                                </td>
                                                 <td>
                                                     <div class="dropdown">
                                                         <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">

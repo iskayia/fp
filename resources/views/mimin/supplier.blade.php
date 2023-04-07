@@ -26,9 +26,12 @@
                                 <th>Aksi</th>
                             </thead>
                             <tbody>
+                                @php
+                                $n = 1;
+                                @endphp
                                 @foreach($supplier as $s)
                                 <tr>
-                                    <td>{{$s->id_supplier}}</td>
+                                    <td>{{$n++}}</td>
                                     <td>{{$s->nama_supplier}}</td>
                                     <td>{{$s->email_supplier}}</td>
                                     <td>{{$s->kontak_supplier}}</td>

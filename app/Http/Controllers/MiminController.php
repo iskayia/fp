@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ecom;
-use App\Models\Pembelian;
-use App\Models\Pengeluaran;
-use App\Models\User;
 use App\Models\Supplier;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -26,48 +24,39 @@ class MiminController extends Controller
     }
 
     public function add_data(){
-        return view('mimin/add_data');
-    }
+        $supplier = Supplier::latest()->get();
+        return view('mimin/add_data')->with('supplier',$supplier);
     
-    public function pembelian(){
-        $pembelian= Pembelian::latest()
-        ->join('produk','produk.id_produk','=','pembelian.id_pembelian')
-        ->select('pembelian.*','produk.nama_produk')
-        ->get();
-        return view('mimin/pembelian')->with('pembelian',$pembelian);
     }
 
-    public function add_pembelian(){
-        return view('mimin/add_pembelian');
-    }
+    public function add_data_action(Request $request){
+       
+        $request->validate([
+            'nama_produk'=>'required',
+            'id_supplier'=>'required',
+            'stok'=>'required',
+            'harga_produk'=>'required',
+            'gambar_produk'=>'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+        ]);
 
-    public function pengeluaran(){
-        $penjualan= Pengeluaran::latest()
-        ->join('produk','produk.id_produk','=','penjualan.id_penjualan')
-        ->select('penjualan.*','produk.nama_produk')
-        ->get();
-        return view('mimin/pengeluaran')->with('penjualan',$penjualan);
-    }
+        $gambar  = 'FP-'.time().'.'.$request->gambar_produk->extension();
 
-    public function add_pengeluaran(){
-        return view('mimin/add_pengeluaran');
-    }
+        $request->gambar_produk->move(public_path('gambar_produk'), $gambar);
 
+        $dataproduk = new Ecom([
+            'nama_produk'=>$request->nama_produk,
+            'id_supplier'=>$request->id_supplier,
+            'stok'=>$request->stok,
+            'harga_produk'=>$request->harga_produk,
+            'gambar_produk'=>$gambar
+        ]);
+        $dataproduk->save();
+
+        return redirect()->route('data')->with('success','data have been save!');
+    }
+     
     public function pelanggan(){
         $pelanggan= User::all();
         return view('mimin/pelanggan')->with('pelanggan',$pelanggan);
-    }
-
-    public function supplier(){
-        $supplier= Supplier::all();
-        return view('mimin/supplier')->with('supplier',$supplier);
-    }
-
-    public function add_supplier(){
-        return view('mimin/add_supplier');
-    }
-
-    public function laporan(){
-        return view('mimin/laporan');
     }
 }

@@ -26,9 +26,12 @@
                                 <th>Aksi</th>
                             </thead>
                             <tbody>
+                                @php
+                                $n = 1;
+                                @endphp
                                 @foreach($penjualan as $p)
                                 <tr>
-                                    <td>{{$p->id_penjualan}}</td>
+                                    <td>{{$n++}}</td>
                                     <td>{{$p->nama_produk}}</td>
                                     <td>{{$p->jumlah_penjualan}}</td>
                                     <td>{{$p->tgl_penjualan}}</td>

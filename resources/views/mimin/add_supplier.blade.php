@@ -8,12 +8,14 @@
                     <h5 class="card-title">Tambah Supplier</h5>
                 </div>
                 <div class="card-body">
-                    <form action="" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('add_supplier_action') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    @method("POST")
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>Nama Supplier</label>
-                                    <input type="text" class="form-control" placeholder="nama supplier" value="nama supplier">
+                                    <input type="text" class="form-control" placeholder="nama supplier" name="nama_supplier">
                                 </div>
                             </div>
                         </div>
@@ -21,7 +23,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>Email Supplier</label>
-                                    <input type="text" class="form-control" placeholder="email" value="email">
+                                    <input type="text" class="form-control" placeholder="email" name="email_supplier">
                                 </div>
                             </div>
                         </div>
@@ -29,7 +31,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>Kontak Supplier</label>
-                                    <input type="text" class="form-control" placeholder="kontak" value="kontak">
+                                    <input type="text" class="form-control" placeholder="kontak" name="kontak_supplier">
                                 </div>
                             </div>
                         </div>
@@ -37,7 +39,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>Alamat Supplier</label>
-                                    <input type="text" class="form-control" placeholder="alamat" value="alamat">
+                                    <input type="text" class="form-control" placeholder="alamat" name="alamat_supplier">
                                 </div>
                             </div>
                         </div>

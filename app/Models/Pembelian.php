@@ -11,5 +11,6 @@ class Pembelian extends Model
     protected $table='pembelian';
     protected $key='id_pembelian';
     protected $fillable=['id_produk','tgl_pembelian','jumlah_pembelian','harga_pembelian'];
+    protected $dates=['tgl_pembelian'];
 
 }

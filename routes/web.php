@@ -45,12 +45,17 @@ Route::post('add_data_action', [MiminController::class,'add_data_action'])->name
 
 Route::get('pembelian',[PembelianController::class, 'pembelian'])->name('pembelian');
 Route::get('add_pembelian',[PembelianController::class, 'add_pembelian'])->name('add_pembelian');
+Route::post('add_pembelian_action',[PembelianController::class, 'add_pembelian_action'])->name('add_pembelian_action');
+
 
 Route::get('pengeluaran',[PengeluaranController::class, 'pengeluaran'])->name('pengeluaran');
 Route::get('add_pengeluaran',[PengeluaranController::class, 'add_pengeluaran'])->name('add_pengeluaran');
+Route::post('add_pengeluaran_action',[PengeluaranController::class, 'add_pengeluaran_action'])->name('add_pengeluaran_action');
+
 
 Route::get('supplier',[SupplierController::class, 'supplier'])->name('supplier');
 Route::get('add_supplier',[SupplierController::class, 'add_supplier'])->name('add_supplier');
+Route::post('add_supplier_action',[SupplierController::class, 'add_supplier_action'])->name('add_supplier_action');
 
 Route::get('laporan',[LaporanController::class, 'laporan'])->name('laporan');
 

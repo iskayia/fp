@@ -41,10 +41,10 @@ class MiminController extends Controller
 
         $gambar  = 'FP-'.time().'.'.$request->gambar_produk->extension();
 
-        $request->gambar_produk->move(public_path('gambar_produk'), $gambar);
+        $request->gambar_produk->move(public_path('gambar'), $gambar);
 
         $dataproduk = new Ecom([
-            'nama_produk'=>$request->nama_produk,
+            'nama_produk'=>$request->nama_produk, 
             'id_supplier'=>$request->id_supplier,
             'stok'=>$request->stok,
             'harga_produk'=>$request->harga_produk,

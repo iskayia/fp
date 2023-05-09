@@ -164,7 +164,7 @@
                                                 <td>{{$p->stok}}</td>
                                                 <td>{{$p->harga_produk}}</td>
                                                 <td>
-                                                    <img src="gambar_produk/{{$p->gambar_produk}}" width="100" height="100" alt="{{$p->gambar_produk}}">
+                                                    <img src="gambar/{{$p->gambar_produk}}" width="100" height="100" alt="{{$p->gambar_produk}}">
                                                 </td>
                                                 <td>
                                                     <div class="dropdown">
@@ -172,16 +172,17 @@
                                                             <i class="nc-icon nc-bullet-list-67"></i>
                                                         </a>
                                                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                                                            <a class="dropdown-item" href="#"><i class="nc-icon nc-settings"></i> Edit</a>
+                                                            <a class="dropdown-item" href="{{route('edit_data',$p->id_produk)}}"><i class="nc-icon nc-settings"></i> Edit</a>
 
                                                             <!-- Button trigger modal -->
-                                                            <button type="button" class="dropdown-item" data-toggle="modal" data-target="#">
+                                                            <button type="button" class="dropdown-item" data-toggle="modal" data-target="#modalDelete{{$p->id_produk}}">
                                                                 <i class="nc-icon nc-basket"></i> Delete
                                                             </button>
                                                         </div>
                                                     </div>
+
                                                     <!-- Modal -->
-                                                    <div class="modal fade" id="modaldelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal fade" id="modalDelete{{$p->id_produk}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                         <div class="modal-dialog" role="document">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
@@ -195,7 +196,7 @@
                                                                 </div>
                                                                 <div class="modal-footer">
                                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                    <a href="#" class="btn btn-primary">Delete</a>
+                                                                    <a href="{{route('hapus_data',$p->id_produk)}}" class="btn btn-primary">Delete</a>
                                                                 </div>
                                                             </div>
                                                         </div>

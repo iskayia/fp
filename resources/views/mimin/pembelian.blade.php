@@ -42,7 +42,7 @@
                                                 <i class="nc-icon nc-bullet-list-67"></i>
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                                                <a class="dropdown-item" href="#"><i class="nc-icon nc-settings"></i> Edit</a>
+                                                <a class="dropdown-item" href="{{route('edit_pembelian',$p->id_pembelian)}}"><i class="nc-icon nc-settings"></i> Edit</a>
 
                                                 <!-- Button trigger modal -->
                                                 <button type="button" class="dropdown-item" data-toggle="modal" data-target="#">

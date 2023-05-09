@@ -42,10 +42,15 @@ Route::get('mimin',[MiminController::class, 'mimin'])->name('mimin');
 Route::get('data',[MiminController::class, 'data'])->name('data');
 Route::get('add_data',[MiminController::class, 'add_data'])->name('add_data');
 Route::post('add_data_action', [MiminController::class,'add_data_action'])->name('add_data_action');
+Route::get('edit_data/{id}', [MiminController::class,'edit_data'])->name('edit_data');
+Route::put('update_data/{id}', [MiminController::class,'update_data'])->name('update_data');
+Route::get('hapus_data/{id}', [MiminController::class,'hapus_data'])->name('hapus_data');
 
 Route::get('pembelian',[PembelianController::class, 'pembelian'])->name('pembelian');
 Route::get('add_pembelian',[PembelianController::class, 'add_pembelian'])->name('add_pembelian');
 Route::post('add_pembelian_action',[PembelianController::class, 'add_pembelian_action'])->name('add_pembelian_action');
+Route::get('edit_pembelian/{id}', [PembelianController::class,'edit_pembelian'])->name('edit_pembelian');
+Route::put('update_pembelian/{id}', [PembelianController::class,'update_pembelian'])->name('update_pembelian');
 
 
 Route::get('pengeluaran',[PengeluaranController::class, 'pengeluaran'])->name('pengeluaran');

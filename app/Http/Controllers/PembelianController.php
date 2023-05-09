@@ -43,4 +43,15 @@ class PembelianController extends Controller
         $produk->save();
         return redirect()->route('pembelian')->with('success','data have been save!');
     }
+
+    public function edit_pembelian($id){
+        $pembelian= Pembelian::findOrFail($id);
+        $produk= Ecom::latest()->get();
+        return view('mimin/edit_pembelian')->with('pembelian',$pembelian)->with('produk', $produk);
+
+    }
+
+    public function update_pembelian(){
+        
+    }
 }

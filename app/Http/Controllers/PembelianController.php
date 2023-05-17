@@ -45,13 +45,43 @@ class PembelianController extends Controller
     }
 
     public function edit_pembelian($id){
-        $pembelian= Pembelian::findOrFail($id);
+        $pembelian= Pembelian::find($id);
         $produk= Ecom::latest()->get();
         return view('mimin/edit_pembelian')->with('pembelian',$pembelian)->with('produk', $produk);
 
     }
 
-    public function update_pembelian(){
-        
+    public function update_pembelian(Request $request, $id){
+        $request->validate([
+            'id_produk'=>'required',
+            'jumlah_pembelian'=>'required',
+            'harga_pembelian'=>'required',
+            'tgl_pembelian'=>'required'
+        ]);
+        $pembelian= Pembelian::find($id);
+        $produk_before = Ecom::find($pembelian->id_produk);
+        $produk_before->stok = $produk_before->stok - intval($pembelian->jumlah_pembelian);
+        $produk_before->save();
+        $pembelian->update(
+            [
+            'id_produk'=>$request->id_produk,
+            'jumlah_pembelian'=>$request->jumlah_pembelian,
+            'harga_pembelian'=>$request->harga_pembelian,
+            'tgl_pembelian'=>$request->tgl_pembelian
+            ]
+        );
+        $produk = Ecom::find($request->id_produk);
+        $produk->stok = $produk->stok + intval($request->jumlah_pembelian);
+        $produk->save();
+        return redirect()->route('pembelian')->with('success','data have been save!');
+    }
+
+    public function hapus_pembelian($id){
+        $pembelian= Pembelian::find($id);
+        $produk_before = Ecom::find($pembelian->id_produk);
+        $produk_before->stok = $produk_before->stok - intval($pembelian->jumlah_pembelian);
+        $produk_before->save();
+        $pembelian->delete();
+        return redirect()->route('pembelian')->with('success','data have been delete!');
     }
 }

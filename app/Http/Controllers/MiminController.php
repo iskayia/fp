@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Ecom;
 use App\Models\Supplier;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -110,8 +109,4 @@ class MiminController extends Controller
         return redirect()->route('data')->with('success','data berhasil dihapus!');
     }
 
-    public function pelanggan(){
-        $pelanggan= User::all();
-        return view('mimin/pelanggan')->with('pelanggan',$pelanggan);
-    }
 }

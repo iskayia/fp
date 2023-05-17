@@ -5,10 +5,10 @@
         <div class="col-md-8">
             <div class="card card-user">
                 <div class="card-header">
-                    <h5 class="card-title">Edit Data Pembelian</h5>
+                    <h5 class="card-title">Tambah Data Penjualan</h5>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('update_pembelian',$pembelian->id_pembelian) }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('update_pengeluaran',$penjualan->id_penjualan) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method("PUT")
                         <div class="row">
@@ -18,7 +18,7 @@
                                     <select class="form-control" name="id_produk">
                                         <option selected>Pilih produk</option>
                                         @foreach($produk as $p)
-                                        <option value="{{$p->id_produk}}" {{$pembelian->id_produk == $p->id_produk ? 'selected':''}} >{{$p->nama_produk}}</option>
+                                        <option value="{{$p->id_produk}}" {{$penjualan->id_produk == $p->id_produk ? 'selected':''}}>{{$p->nama_produk}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -28,19 +28,13 @@
                             <div class="col-md-3 px-1">
                                 <div class="form-group">
                                     <label>Jumlah Produk</label>
-                                    <input type="number" class="form-control" name="jumlah_pembelian" value="{{$pembelian->jumlah_pembelian}}">
+                                    <input type="number" class="form-control" placeholder="1" name="jumlah_penjualan" value="{{$penjualan->jumlah_penjualan}}">
                                 </div>
                             </div>
-                            <div class="col-md-4 pl-1">
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">Harga Beli/pcs</label>
-                                    <input type="number" class="form-control" name="harga_pembelian" value="{{$pembelian->harga_pembelian}}">
-                                </div>
-                            </div>
-                            <div class="col-md-4 pl-1">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Tanggal Entri</label>
-                                    <input class="form-control date-picker" name="tgl_pembelian" value="{{ date('Y-m-d',strtotime($pembelian->tgl_pembelian))}}" type="date" >
+                                    <input class="form-control date-picker" name="tgl_penjualan" value="{{ date('Y-m-d',strtotime($penjualan->tgl_penjualan))}}" type="date">
                                 </div>
                             </div>
                         </div>
@@ -55,4 +49,5 @@
         </div>
     </div>
 </div>
+
 @include('mimin/footer_mimin')

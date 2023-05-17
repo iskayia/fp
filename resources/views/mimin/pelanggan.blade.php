@@ -36,16 +36,16 @@
                                                 <i class="nc-icon nc-bullet-list-67"></i>
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                                                <a class="dropdown-item" href="#"><i class="nc-icon nc-settings"></i> Edit</a>
+                                                <a class="dropdown-item" href="{{route('edit_pelanggan',$p->id_pelanggan)}}"><i class="nc-icon nc-settings"></i> Edit</a>
 
                                                 <!-- Button trigger modal -->
-                                                <button type="button" class="dropdown-item" data-toggle="modal" data-target="#">
+                                                <button type="button" class="dropdown-item" data-toggle="modal" data-target="#modalDelete{{$p->id_pelanggan}}">
                                                     <i class="nc-icon nc-basket"></i> Delete
                                                 </button>
                                             </div>
                                         </div>
                                         <!-- Modal -->
-                                        <div class="modal fade" id="modaldelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal fade" id="modalDelete{{$p->id_pelanggan}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header">

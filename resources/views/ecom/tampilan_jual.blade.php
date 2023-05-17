@@ -82,7 +82,7 @@
                 <h2 class="section-heading text-uppercase">About</h2>
                 <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
             </div>
-            <ul class="timeline">
+            <!-- <ul class="timeline">
                 <li>
                     <div class="timeline-image"><img class="rounded-circle img-fluid" src="{{asset('penjualan/assets/img/about/1.jpg')}}" alt="..." /></div>
                     <div class="timeline-panel">
@@ -142,7 +142,9 @@
                         </h4>
                     </div>
                 </li>
-            </ul>
+            </ul> -->
+            <!-- about us new -->
+            
         </div>
     </section>
 

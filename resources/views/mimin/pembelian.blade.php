@@ -45,13 +45,13 @@
                                                 <a class="dropdown-item" href="{{route('edit_pembelian',$p->id_pembelian)}}"><i class="nc-icon nc-settings"></i> Edit</a>
 
                                                 <!-- Button trigger modal -->
-                                                <button type="button" class="dropdown-item" data-toggle="modal" data-target="#">
+                                                <button type="button" class="dropdown-item" data-toggle="modal" data-target="#modaldelete{{$p->id_pembelian}}">
                                                     <i class="nc-icon nc-basket"></i> Delete
                                                 </button>
                                             </div>
                                         </div>
                                         <!-- Modal -->
-                                        <div class="modal fade" id="modaldelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal fade" id="modaldelete{{$p->id_pembelian}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
@@ -65,7 +65,7 @@
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                        <a href="#" class="btn btn-primary">Delete</a>
+                                                        <a href="{{route('hapus_pembelian',$p->id_pembelian)}}" class="btn btn-primary">Delete</a>
                                                     </div>
                                                 </div>
                                             </div>

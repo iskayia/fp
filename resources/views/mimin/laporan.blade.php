@@ -10,22 +10,24 @@
                 </div>
                 <div class="card-body">
                     <h5>Laporan Transaksi :</h5>
-                    <form action="">
+                    <form action="{{route('buka_laporan')}}" method="post" >
+                    @csrf
+                    @method("POST")
                             <div class="col-md-6 col-sm-12">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                    <input class="form-check-input" type="radio" name="laporan" id="flexRadioDefault1" value="pembelian">
                                     <label class="form-check-label" for="flexRadioDefault1">
                                         Pembelian
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                                    <input class="form-check-input" type="radio" name="laporan" id="flexRadioDefault2" value="penjualan">
                                     <label class="form-check-label" for="flexRadioDefault2">
                                         Penjualan
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                                    <input class="form-check-input" type="radio" name="laporan" id="flexRadioDefault2" value="keuangan">
                                     <label class="form-check-label" for="flexRadioDefault2">
                                         Keuangan
                                     </label>
@@ -34,7 +36,7 @@
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label>Tanggal Entri</label>
-                                <input class="form-control date-picker" name="tgl_pembelian[]" placeholder="Masukkan tanggal entri" type="text">
+                                <input class="form-control date-picker" name="daterange" placeholder="Masukkan rentang waktu entri" type="text">
                             </div>
                         </div>
                         <div class="update ml-auto mr-auto text-center">
@@ -48,5 +50,4 @@
 </div>
 </div>
 
-
-@include('mimin/footer_mimin')
+@include('mimin/footer_laporan')

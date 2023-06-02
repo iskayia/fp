@@ -75,6 +75,7 @@ Route::put('update_supplier/{id}', [SupplierController::class,'update_supplier']
 Route::get('hapus_supplier/{id}', [SupplierController::class,'hapus_supplier'])->name('hapus_supplier');
 
 Route::get('laporan',[LaporanController::class, 'laporan'])->name('laporan');
+Route::post('buka_laporan',[LaporanController::class, 'buka_laporan'])->name('buka_laporan');
 
 
 

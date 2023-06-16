@@ -70,7 +70,7 @@
                             </div>
                             <br>
                             <div class="form-group">
-                                <label for="tipe_transaksi">Tipe Transaksi</label>
+                                <label for="tipe_transaksi">Tipe Pemangambilan Produk</label>
 
                                 <select class="form-control" id="tipe_transaksi" name="tipe_transaksi" onclick="showAlamat()">
                                     <option value="ambil">Ambil</option>

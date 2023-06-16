@@ -40,7 +40,7 @@
                                 $no++;
                                 @endphp
                                 <tr class="text-center">
-                                    <td scope="col"> <img class="img-thumbnail" style="object-fit: cover;height: 150px;" src="{{env('URL_IMAGE') . $k->gambar_produk}}" alt="Produk Fitri Parfume">
+                                    <td scope="col"> <img class="img-thumbnail" style="object-fit: cover;height: 150px;" src="gambar/{{$k->gambar_produk}}" alt="Produk Fitri Parfume">
                                     </td>
                                     <td scope="col">{{$k->jumlah}}</td>
                                     <td scope="col">{{$k->harga_produk * $k->jumlah}}</td>
@@ -70,7 +70,7 @@
                             </div>
                             <br>
                             <div class="form-group">
-                                <label for="tipe_transaksi">Tipe Transaksi</label>
+                                <label for="tipe_transaksi">Tipe Pemangambilan Produk</label>
 
                                 <select class="form-control" id="tipe_transaksi" name="tipe_transaksi" onclick="showAlamat()">
                                     <option value="ambil">Ambil</option>

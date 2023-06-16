@@ -34,7 +34,7 @@
                                     <td>{{$n++}}</td>
                                     <td>{{$p->nama_produk}}</td>
                                     <td>{{$p->jumlah_pembelian}}</td>
-                                    <td>{{$p->tgl_pembelian->format('d F Y')}}</td>
+                                    <td>{{$p->tgl_pembelian}}</td>
                                     <td>{{$p->harga_pembelian}}</td>
                                     <td>
                                         <div class="dropdown">

@@ -48,7 +48,7 @@
                         <tr>
                             <th scope="row">{{$no}}</th>
                             <td>
-                            <img class="img-thumbnail" style="object-fit: cover;height: 150px;" src="{{env('URL_IMAGE') . $k->gambar_produk}}" alt="Produk Fitri Parfume">    
+                            <img class="img-thumbnail" style="object-fit: cover;height: 150px;" src="gambar/{{$k->gambar_produk}}" alt="Produk Fitri Parfume">    
                             </td>
                             <td>{{$k->nama_produk}}</td>
                             <td>
@@ -57,7 +57,10 @@
                             <td >{{$k->harga_produk}}</td>
                            
                             <td class="harga" id='jumharga{{$k->id_produk}}'>{{$k->harga_produk * $k->jumlah}}</td>
-                            <td><button class="btn btn-danger"><ion-icon name="trash-outline"></ion-icon></button></td>
+                            <td>
+                                <button class="btn btn-danger"><ion-icon name="bag-handle-outline"></ion-icon></button> | 
+                                <button class="btn btn-danger"><ion-icon name="trash-outline"></ion-icon></button>
+                            </td>
                         </tr>
                         @empty
                     <div class="alert alert-danger">

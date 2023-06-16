@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('harga_produk');
             $table->string('stok');
             $table->text('gambar_produk');
+            $table->longText('detail');
             $table->timestamps();
         });
     }

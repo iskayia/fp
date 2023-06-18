@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('keranjang', function (Blueprint $table) {
             $table->id('id_keranjang');
-            $table->id('id_produk');
-            $table->id('id_pelanggan');
+            $table->bigInteger('id_produk');
+            $table->bigInteger('id_pelanggan');
             $table->integer('jumlah');
             $table->timestamps();
         });

@@ -30,7 +30,7 @@
             <div class="logo">
                 <a href="{{route('mimin')}}" class="simple-text logo-normal">
                     <div class="logo-image-small">
-                        <img src="{{asset('penjualan/assets/img/logo1.png')}}">
+                        <img src="{{asset('tempenjualan/assets/img/logo1.png')}}">
                     </div>
                 </a>
             </div>
@@ -55,7 +55,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{route('pengeluaran')}}">
+                        <a href="{{route('penjualan')}}">
                             <i class="nc-icon nc-cloud-upload-94"></i>
                             <p>Penjualan</p>
                         </a>

@@ -5,9 +5,9 @@ use App\Http\Controllers\EcomController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\PembelianController;
-use App\Http\Controllers\PengeluaranController;
+use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\SupplierController;
-use App\Models\Pengeluaran;
+use App\Models\Penjualan;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -59,12 +59,12 @@ Route::put('update_pembelian/{id}', [PembelianController::class,'update_pembelia
 Route::get('hapus_pembelian/{id}', [PembelianController::class,'hapus_pembelian'])->name('hapus_pembelian');
 
 
-Route::get('pengeluaran',[PengeluaranController::class, 'pengeluaran'])->name('pengeluaran');
-Route::get('add_pengeluaran',[PengeluaranController::class, 'add_pengeluaran'])->name('add_pengeluaran');
-Route::post('add_pengeluaran_action',[PengeluaranController::class, 'add_pengeluaran_action'])->name('add_pengeluaran_action');
-Route::get('edit_pengeluaran/{id}', [PengeluaranController::class,'edit_pengeluaran'])->name('edit_pengeluaran');
-Route::put('update_pengeluaran/{id}', [PengeluaranController::class,'update_pengeluaran'])->name('update_pengeluaran');
-Route::get('hapus_pengeluaran/{id}', [PengeluaranController::class,'hapus_pengeluaran'])->name('hapus_pengeluaran');
+Route::get('penjualan',[PenjualanController::class, 'penjualan'])->name('penjualan');
+Route::get('add_penjualan',[PenjualanController::class, 'add_penjualan'])->name('add_penjualan');
+Route::post('add_penjualan_action',[PenjualanController::class, 'add_penjualan_action'])->name('add_penjualan_action');
+Route::get('edit_penjualan/{id}', [PenjualanController::class,'edit_penjualan'])->name('edit_penjualan');
+Route::put('update_penjualan/{id}', [PenjualanController::class,'update_penjualan'])->name('update_penjualan');
+Route::get('hapus_penjualan/{id}', [PenjualanController::class,'hapus_penjualan'])->name('hapus_penjualan');
 
 
 Route::get('supplier',[SupplierController::class, 'supplier'])->name('supplier');

@@ -8,21 +8,21 @@
     <meta name="author" content="" />
     <title>Fitri Parfum</title>
     <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="{{asset('penjualan/assets/favicon.ico')}}" />
+    <link rel="icon" type="image/x-icon" href="{{asset('tempenjualan/assets/favicon.ico')}}" />
     <!-- Font Awesome icons (free version)-->
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
     <!-- Google fonts-->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
     <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
     <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="{{asset('penjualan/css/styles.css')}}" rel="stylesheet" />
+    <link href="{{asset('tempenjualan/css/styles.css')}}" rel="stylesheet" />
 </head>
 
 <body id="page-top">
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
         <div class="container">
-            <a class="navbar-brand" href="#page-top"><img src="{{asset('penjualan/assets/img/logo1.png')}}" alt="logo fitri parfum" /></a>
+            <a class="navbar-brand" href="#page-top"><img src="{{asset('tempenjualan/assets/img/logo1.png')}}" alt="logo fitri parfum" /></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 Menu
                 <i class="fas fa-bars ms-1"></i>

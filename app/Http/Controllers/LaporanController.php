@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Pembelian;
-use App\Models\Pengeluaran;
+use App\Models\Penjualan;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 class LaporanController extends Controller
@@ -27,12 +27,12 @@ class LaporanController extends Controller
 
         } elseif($request->laporan=='penjualan'){
 
-            $penjualan= Pengeluaran::latest()
+            $penjualan= Penjualan::latest()
             ->join('produk','produk.id_produk','=','penjualan.id_produk')
             ->select('penjualan.*','produk.nama_produk','produk.harga_produk')
             ->whereBetween('penjualan.created_at', [$startDate, $endDate])
             ->get();
-            return view('mimin/laporan_pengeluaran')->with('penjualan',$penjualan);
+            return view('mimin/laporan_penjualan')->with('penjualan',$penjualan);
         }elseif($request->laporan=='keuangan'){
 
             $pembelian= Pembelian::latest()
@@ -41,7 +41,7 @@ class LaporanController extends Controller
             ->whereBetween('pembelian.created_at', [$startDate, $endDate])
             ->get();
 
-            $penjualan= Pengeluaran::latest()
+            $penjualan= Penjualan::latest()
             ->join('produk','produk.id_produk','=','penjualan.id_produk')
             ->select('penjualan.*','produk.nama_produk','produk.harga_produk')
             ->whereBetween('penjualan.created_at', [$startDate, $endDate])

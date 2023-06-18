@@ -2,26 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Pengeluaran;
+use App\Models\Penjualan;
 use App\Models\Ecom;
 use Illuminate\Http\Request;
 
-class PengeluaranController extends Controller
+class PenjualanController extends Controller
 {
-    public function pengeluaran(){
-        $penjualan= Pengeluaran::latest()
+    public function penjualan(){
+        $penjualan= Penjualan::latest()
         ->join('produk','produk.id_produk','=','penjualan.id_produk')
         ->select('penjualan.*','produk.nama_produk')
         ->get();
-        return view('mimin/pengeluaran')->with('penjualan',$penjualan);
+        return view('mimin/penjualan')->with('penjualan',$penjualan);
     }
 
-    public function add_pengeluaran(){
+    public function add_penjualan(){
         $produk = Ecom::latest()->get();
-        return view('mimin/add_pengeluaran')->with('produk',$produk);
+        return view('mimin/add_penjualan')->with('produk',$produk);
     }
 
-    public function add_pengeluaran_action(Request $request){
+    public function add_penjualan_action(Request $request){
         $request->validate([
             'id_produk'=>'required',
             'jumlah_penjualan'=>'required',
@@ -29,7 +29,7 @@ class PengeluaranController extends Controller
         ]);
 
 
-        $databeli = new Pengeluaran([
+        $databeli = new Penjualan([
             'id_produk'=>$request->id_produk,
             'jumlah_penjualan'=>$request->jumlah_penjualan,
             'tgl_penjualan'=>$request->tgl_penjualan
@@ -39,22 +39,22 @@ class PengeluaranController extends Controller
         $produk = Ecom::find($request->id_produk);
         $produk->stok = $produk->stok - intval($request->jumlah_penjualan);
         $produk->save();
-        return redirect()->route('pengeluaran')->with('success','data have been save!');
+        return redirect()->route('penjualan')->with('success','data have been save!');
     }
 
-    public function edit_pengeluaran($id){
-        $penjualan= Pengeluaran::find($id);
+    public function edit_penjualan($id){
+        $penjualan= Penjualan::find($id);
         $produk= Ecom::latest()->get();
-        return view('mimin/edit_pengeluaran')->with('penjualan',$penjualan)->with('produk', $produk);
+        return view('mimin/edit_penjualan')->with('penjualan',$penjualan)->with('produk', $produk);
     }
 
-    public function update_pengeluaran(Request $request,$id ){
+    public function update_penjualan(Request $request,$id ){
         $request->validate([
             'id_produk'=>'required',
             'jumlah_penjualan'=>'required',
             'tgl_penjualan'=>'required'
         ]);
-        $penjualan=Pengeluaran::find($id);
+        $penjualan=Penjualan::find($id);
         $produk_before = Ecom::find($penjualan->id_produk);
         $produk_before->stok = $produk_before->stok + intval($penjualan->jumlah_penjualan);
         $produk_before->save();
@@ -66,17 +66,17 @@ class PengeluaranController extends Controller
         $produk = Ecom::find($request->id_produk);
         $produk->stok = $produk->stok - intval($request->jumlah_penjualan);
         $produk->save();
-        return redirect()->route('pengeluaran')->with('success','data have been save!');
+        return redirect()->route('penjualan')->with('success','data have been save!');
 
     }
 
-    public function hapus_pengeluaran($id){
-        $penjualan=Pengeluaran::find($id);
+    public function hapus_penjualan($id){
+        $penjualan=Penjualan::find($id);
         $produk_before = Ecom::find($penjualan->id_produk);
         $produk_before->stok = $produk_before->stok + intval($penjualan->jumlah_penjualan);
         $produk_before->save();
         $penjualan->delete();
-        return redirect()->route('pengeluaran')->with('success','data have been delete!');
+        return redirect()->route('penjualan')->with('success','data have been delete!');
 
     }
 }

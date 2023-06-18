@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use League\CommonMark\Extension\Table\Table;
 
 
-class Pengeluaran extends Model
+class Penjualan extends Model
 {
     use HasFactory;
     protected $table='penjualan';

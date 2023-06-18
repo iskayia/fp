@@ -13,25 +13,25 @@
         </div>
         <div class="carousel-inner " role="listbox">
             <div class="carousel-item active">
-                <img src="{{asset('penjualan/assets/img/jumbo1.jpg')}}" class="d-block w-100" alt="...">
+                <img src="{{asset('tempenjualan/assets/img/jumbo1.jpg')}}" class="d-block w-100" alt="...">
             </div>
             <div class="carousel-item">
-                <img src="{{asset('penjualan/assets/img/jumbo2.jpg')}}" class="d-block w-100" alt="...">
+                <img src="{{asset('tempenjualan/assets/img/jumbo2.jpg')}}" class="d-block w-100" alt="...">
             </div>
             <div class="carousel-item">
-                <img src="{{asset('penjualan/assets/img/jumbo3.jpg')}}" class="d-block w-100" alt="...">
+                <img src="{{asset('tempenjualan/assets/img/jumbo3.jpg')}}" class="d-block w-100" alt="...">
             </div>
             <div class="carousel-item">
-                <img src="{{asset('penjualan/assets/img/jumbo4.jpg')}}" class="d-block w-100" alt="...">
+                <img src="{{asset('tempenjualan/assets/img/jumbo4.jpg')}}" class="d-block w-100" alt="...">
             </div>
             <div class="carousel-item">
-                <img src="{{asset('penjualan/assets/img/jumbo5.jpg')}}" class="d-block w-100" alt="...">
+                <img src="{{asset('tempenjualan/assets/img/jumbo5.jpg')}}" class="d-block w-100" alt="...">
             </div>
             <div class="carousel-item">
-                <img src="{{asset('penjualan/assets/img/jumbo6.jpg')}}" class="d-block w-100" alt="...">
+                <img src="{{asset('tempenjualan/assets/img/jumbo6.jpg')}}" class="d-block w-100" alt="...">
             </div>
             <div class="carousel-item">
-                <img src="{{asset('penjualan/assets/img/parfume.jpg')}}" class="d-block w-100" alt="...">
+                <img src="{{asset('tempenjualan/assets/img/parfume.jpg')}}" class="d-block w-100" alt="...">
             </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -60,7 +60,7 @@
         </div>
         <div class="row text-justify">
             <div class="col-md-4">
-                <img class="img-fluid " style="object-fit: cover;height: 300px;" src="{{asset('penjualan/assets/img/vector6.png')}}" alt="temukan produk">
+                <img class="img-fluid " style="object-fit: cover;height: 300px;" src="{{asset('tempenjualan/assets/img/vector6.png')}}" alt="temukan produk">
                 <!-- <span class="fa-stack fa-4x">
                     <i class="fas fa-circle fa-stack-2x text-primary"></i>
                     <i class="fas fa-laptop fa-stack-1x fa-inverse"></i>
@@ -69,12 +69,12 @@
                 <p class="text-muted">Temukan arfum yang akan anda beli </p>
             </div>
             <div class="col-md-4">
-                <img class="img-fluid " style="object-fit: cover;height: 300px;" src="{{asset('penjualan/assets/img/vector2.png')}}" alt="temukan produk">
+                <img class="img-fluid " style="object-fit: cover;height: 300px;" src="{{asset('tempenjualan/assets/img/vector2.png')}}" alt="temukan produk">
                 <h4 class="my-3">Beli Parfum</h4>
                 <p class="text-muted">Masukkan ke keranjang belanja atau beli parfum yang kamu akan pesan</p>
             </div>
             <div class="col-md-4">
-                <img class="img-fluid " style="object-fit: cover;height: 300px;" src="{{asset('penjualan/assets/img/vector1.png')}}" alt="temukan produk">
+                <img class="img-fluid " style="object-fit: cover;height: 300px;" src="{{asset('tempenjualan/assets/img/vector1.png')}}" alt="temukan produk">
                 <h4 class="my-3">Bayar pesanan</h4>
                 <p class="text-muted">Lakukan pembayaran untuk pembelian</p>
             </div>
@@ -124,10 +124,10 @@
                 <p class="text-muted">Jalan Blokeng RT 04 RW 03 Serdang Wetan Legok, Kabupaten Tangerang, Serdang Wetan, Kec. Legok, Kabupaten Tangerang, Banten 15820</p>
             </div>
             <div class="col-md-4">
-                <img class="img-fluid " style="object-fit: cover;height: 300px;" src="{{asset('penjualan/assets/img/vector4.png')}}" alt="lokasi kami">
+                <img class="img-fluid " style="object-fit: cover;height: 300px;" src="{{asset('tempenjualan/assets/img/vector4.png')}}" alt="lokasi kami">
             </div>
             <div class="col-md-4">
-                <img class="img-fluid " style="object-fit: cover;height: 300px;" src="{{asset('penjualan/assets/img/vector3.png')}}" alt="lokasi kami">
+                <img class="img-fluid " style="object-fit: cover;height: 300px;" src="{{asset('tempenjualan/assets/img/vector3.png')}}" alt="lokasi kami">
             </div>
             <div class="col-md-2 text-justify">
                 <h5 class=" text-muted">Jam Operasional</h5>

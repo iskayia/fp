@@ -10,7 +10,7 @@
                                     <div class="pull-left">
                                         <h4 class="card-title">Tabel Penjualan</h4>
                                     </div>
-                                    <div class="pull-right"><a href="{{route('add_pengeluaran')}}" class="btn btn-info btn-sm">
+                                    <div class="pull-right"><a href="{{route('add_penjualan')}}" class="btn btn-info btn-sm">
                                             <i class="nc-icon nc-simple-add text-white"> Tambah Penjualan</i></a></div>
                                 </div>
                             </div>
@@ -42,7 +42,7 @@
                                                 <i class="nc-icon nc-bullet-list-67"></i>
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                                                <a class="dropdown-item" href="{{route('edit_pengeluaran', $p->id_penjualan)}}"><i class="nc-icon nc-settings"></i> Edit</a>
+                                                <a class="dropdown-item" href="{{route('edit_penjualan', $p->id_penjualan)}}"><i class="nc-icon nc-settings"></i> Edit</a>
 
                                                 <!-- Button trigger modal -->
                                                 <button type="button" class="dropdown-item" data-toggle="modal" data-target="#modaldelete{{$p->id_penjualan}}">
@@ -65,7 +65,7 @@
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                        <a href="{{route('hapus_pengeluaran', $p->id_penjualan)}}" class="btn btn-primary">Delete</a>
+                                                        <a href="{{route('hapus_penjualan', $p->id_penjualan)}}" class="btn btn-primary">Delete</a>
                                                     </div>
                                                 </div>
                                             </div>

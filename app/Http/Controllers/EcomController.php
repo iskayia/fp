@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Ecom;
 use App\Models\Keranjang;
+use App\Models\Pembayaran;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Contracts\Service\Attribute\Required;
@@ -33,20 +34,7 @@ class EcomController extends Controller
         return view('ecom/tampilan_jual',['produk'=>$produk]);
 
     }
-
-    public function beli(){
-        $keranjang= Keranjang::latest()
-        ->join('produk','produk.id_produk','=', 'keranjang.id_produk')
-        ->select('keranjang.*', 'produk.harga_produk','produk.nama_produk','produk.gambar_produk')
-        ->where('keranjang.id_pelanggan',Auth::id())
-        ->get();
-        return view('ecom/beli',['keranjang'=>$keranjang]);
-    }
     
-    public function beli_langsung(){
-        
-    }
-
     public function keranjang(){
 
         $keranjang= Keranjang::latest()
@@ -76,4 +64,29 @@ class EcomController extends Controller
         return redirect('keranjang');
         
     }
+    public function beli(){
+        $keranjang= Keranjang::latest()
+        ->join('produk','produk.id_produk','=', 'keranjang.id_produk')
+        ->select('keranjang.*', 'produk.harga_produk','produk.nama_produk','produk.gambar_produk')
+        ->where('keranjang.id_pelanggan',Auth::id())
+        ->get();
+        return view('ecom/beli',['keranjang'=>$keranjang]);
+    }
+
+    public function beli_action(){
+        $keranjang= Keranjang::latest()
+        ->join('produk','produk.id_produk','=', 'keranjang.id_produk')
+        ->select('keranjang.*', 'produk.harga_produk','produk.nama_produk','produk.gambar_produk')
+        ->where('keranjang.id_pelanggan',Auth::id())
+        ->get();
+
+        
+    }
+    
+    public function beli_langsung(){
+        
+
+
+    }
+
 }

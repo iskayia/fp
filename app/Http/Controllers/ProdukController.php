@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Ecom;
+use App\Models\Produk;
 use App\Models\Keranjang;
 use App\Models\Pembayaran;
+use App\Models\JenisPembayaran;
+use App\Models\Pelanggan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Contracts\Service\Attribute\Required;
 
-class EcomController extends Controller
+class ProdukController extends Controller
 {
-    public function ecom(){
-       $produk= Ecom::latest()->get();
+    public function produk(){
+       $produk= Produk::latest()->get();
 
         return view('ecom/e_index',['produk'=> $produk]);
     }
@@ -30,7 +32,7 @@ class EcomController extends Controller
     }
 
     public function tampil_jual(){
-        $produk= Ecom::latest()->get();
+        $produk= Produk::latest()->get();
         return view('ecom/tampilan_jual',['produk'=>$produk]);
 
     }
@@ -70,7 +72,10 @@ class EcomController extends Controller
         ->select('keranjang.*', 'produk.harga_produk','produk.nama_produk','produk.gambar_produk')
         ->where('keranjang.id_pelanggan',Auth::id())
         ->get();
-        return view('ecom/beli',['keranjang'=>$keranjang]);
+
+        $jenis_pembayaran= JenisPembayaran::latest()->get();
+
+        return view('ecom/beli',['keranjang'=>$keranjang,'jenis_pembayaran'=>$jenis_pembayaran]);
     }
 
     public function beli_action(){
@@ -79,14 +84,19 @@ class EcomController extends Controller
         ->select('keranjang.*', 'produk.harga_produk','produk.nama_produk','produk.gambar_produk')
         ->where('keranjang.id_pelanggan',Auth::id())
         ->get();
-
-        
     }
     
-    public function beli_langsung(){
-        
+    public function beli_langsung(Request $request){
+        $id_produk= $request->id_produk;
+        $jumlah=$request->jumlah;
+        $produk= Produk::findOrfail($id_produk);
+        $jenis_pembayaran= JenisPembayaran::latest()->get();
+        $pelanggan= Auth::guard('pelanggan')->user();
+        return view('ecom/beli_langsung',['jumlah'=>$jumlah,'produk'=>$produk,'jenis_pembayaran'=>$jenis_pembayaran,'pelanggan'=>$pelanggan]);
+    }
 
-
+    public function detail_transaksi(){
+        return view('ecom/detail_transaksi');
     }
 
 }

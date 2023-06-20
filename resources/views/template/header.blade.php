@@ -32,12 +32,12 @@
                     <li class="nav-item"><a class="nav-link" href="{{route('index')}}">Beranda</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{route('index')}}#produk">Produk</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{route('index')}}#about">Tentang Kami</a></li>
-                    @if(Auth::user()!=null)
+                    @if(Auth::guard('pelanggan')->user()!=null)
                     <li class="nav-item"><a class="nav-link" href="{{route('keranjang')}}">Keranjang</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{route('index')}}#profil">Profil</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{route('logout')}}">Logout</a></li>
                     @endif
-                    @if(Auth::user() == null)
+                    @if(Auth::guard('pelanggan')->user() == null)
                     <li class="nav-item"><a class="nav-link" href="{{route('login')}}">Login</a></li>
                     @endif
                 </ul>

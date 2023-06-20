@@ -63,9 +63,10 @@
                         <form action="">
                             <div class="form-group">
                                 <label for="exampleFormControlSelect1">Cara Pembayaran</label>
-                                <select class="form-control" id="exampleFormControlSelect1">
-                                    <option value="tunai">Tunai</option>
-                                    <option value="transfer-bank">Transfer Bank-5646436543245</option>
+                                <select class="form-control" id="exampleFormControlSelect1" name="id_jenis_pembayaran">
+                                @foreach($jenis_pembayaran as $j)  
+                                <option value="{{$j->id_jenis_pembayaran}}">{{$j->jenis_pembayaran}}</option>
+                                @endforeach
                                 </select>
                             </div>
                             <br>

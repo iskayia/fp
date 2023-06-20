@@ -9,7 +9,16 @@
             $('#alamat').hide()
         }
     }
+    function hitung(data) {
+        $qty = data.value;
+        $harga = data.getAttribute('data-harga');
+        $id = data.getAttribute('id')
+        console.log($harga * $qty)
+        $('#jumharga').html($harga * $qty)
+        $('#subtotal').html($harga * $qty)
+    }
 </script>
+
 <section class="page-section " id="services" style="background-color:#FEFCF3; height:100%;">
     <div class="card-body">
 
@@ -30,30 +39,21 @@
                             </thead>
 
                             <tbody>
-                                @php
-                                $subtotal=0;
-                                $no=0;
-                                @endphp
-                                @forelse ($keranjang as $k)
-                                @php
-                                $subtotal+= $k->harga_produk * $k->jumlah;
-                                $no++;
-                                @endphp
                                 <tr class="text-center">
-                                    <td scope="col"> <img class="img-thumbnail" style="object-fit: cover;height: 150px;" src="{{env('URL_IMAGE') . $k->gambar_produk}}" alt="Produk Fitri Parfume">
+                                    <td scope="col"> 
+                                        <img class="img-thumbnail" style="object-fit: cover;height: 150px;" src="gambar/{{$produk->gambar_produk}}" alt="Produk Fitri Parfume">
+                                        <br>
+                                        <label for="">{{$produk->nama_produk}}</label>
                                     </td>
-                                    <td scope="col">{{$k->jumlah}}</td>
-                                    <td scope="col">{{$k->harga_produk * $k->jumlah}}</td>
+                                    <td scope="col">
+                                        <input onchange="hitung(this)" id="jumlah"  data-harga="{{$produk->harga_produk}}" type="number" value="{{$jumlah}}" min='1' style="width:45px;">                                        
+                                    </td>
+                                    <td scope="col" id="jumharga">{{$produk->harga_produk * $jumlah}}</td>
                                 </tr>
-                                @empty
-                                <div class="alert alert-danger">
-                                    Data Post belum Tersedia.
-                                </div>
-                                @endforelse
                                 <tr>
                                     <td><b>Subtotal</b></td>
                                     <td colspan="1" class="text-right"></td>
-                                    <td>Rp.<span id="subtotal">{{$subtotal}}</span></td>
+                                    <td>Rp.<span id="subtotal">{{$produk->harga_produk * $jumlah}}</span></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -63,9 +63,10 @@
                         <form action="">
                             <div class="form-group">
                                 <label for="exampleFormControlSelect1">Cara Pembayaran</label>
-                                <select class="form-control" id="exampleFormControlSelect1">
-                                    <option value="tunai">Tunai</option>
-                                    <option value="transfer-bank">Transfer Bank-5646436543245</option>
+                                <select class="form-control" id="exampleFormControlSelect1" name="id_jenis_pembayaran">
+                                @foreach($jenis_pembayaran as $j)  
+                                <option value="{{$j->id_jenis_pembayaran}}">{{$j->jenis_pembayaran}}</option>
+                                @endforeach
                                 </select>
                             </div>
                             <br>
@@ -78,16 +79,17 @@
                                 </select>
 
                             </div>
-                            <div class="form-group" id="alamat">
-                                <label for="">Alamat</label>
-                                <textarea class="form-control" name="alamat" id="" cols="30" rows="3"></textarea>
+                            <br>
+                            <div class="form-group">
+                                <label for="alamat_pelanggan">Alamat</label>
+                                <input class="form-control" type="text" id="pelanggan" name="pelanggan" value="{{$pelanggan->alamat_pelanggan}}" >
                             </div>
                             <br>
                             <div class="form-group">
                                 <p class="text-justify" style="font-size: small; color:grey; ">Harap dicatat bahwa pesanan tidak dapat diubah atau dibatalkan setelah diproses.
                                     Harap dicatat bahwa proses pengiriman pesanan anda dalam 3 hari kerja setelah pesanan Anda dikirimkan.</p>
                             </div>
-                            <button class="btn btn-danger"><ion-icon name="bag-check-outline"></ion-icon> Beli Sekarang</button>
+                            <a href="{{route('detail_transaksi')}}" class="btn btn-danger" style="float:right">Beli Sekarang</a>
                         </form>
                     </div>
                 </div>

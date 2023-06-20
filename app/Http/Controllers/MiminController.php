@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Ecom;
+use App\Models\Produk;
 use App\Models\Supplier;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -16,7 +16,7 @@ class MiminController extends Controller
     }
 
     public function data(){
-        $produk= Ecom::latest()
+        $produk= Produk::latest()
         ->join('supplier','supplier.id_supplier','=','produk.id_supplier')
         ->select('produk.*','supplier.nama_supplier')
         ->get();
@@ -43,7 +43,7 @@ class MiminController extends Controller
 
         $request->gambar_produk->move(public_path('gambar'), $gambar);
 
-        $dataproduk = new Ecom([
+        $dataproduk = new Produk([
             'nama_produk'=>$request->nama_produk, 
             'id_supplier'=>$request->id_supplier,
             'stok'=>$request->stok,
@@ -56,7 +56,7 @@ class MiminController extends Controller
     }
      
     public function edit_data($id){
-        $produk=Ecom::findOrFail($id);
+        $produk=Produk::findOrFail($id);
         $supplier = Supplier::latest()->get();
         return view('mimin/edit_data')->with('produk',$produk)->with('supplier', $supplier);
     }
@@ -70,7 +70,7 @@ class MiminController extends Controller
             'harga_produk'=>'required',
             'gambar_produk'=>'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
-        $produk = Ecom::findOrFail($id);
+        $produk = Produk::findOrFail($id);
         
         if (isset($request->gambar_produk)){
                 //untuk upload gambar baru
@@ -103,7 +103,7 @@ class MiminController extends Controller
     }
 
     public function hapus_data($id){
-        $produk=Ecom::findOrFail($id);
+        $produk=Produk::findOrFail($id);
         Storage::delete('public/gambar/'.$produk->gambar_produk);
         $produk->delete();
         return redirect()->route('data')->with('success','data berhasil dihapus!');

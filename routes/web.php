@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\miminController;
-use App\Http\Controllers\EcomController;
+use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\PembelianController;
@@ -25,12 +25,13 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-Route::get('/',[EcomController::class, 'tampil_jual'])->name('index');
-Route::get('beli',[EcomController::class, 'beli'])->name('beli');
-Route::get('beli_langsung',[EcomController::class, 'beli_langsung'])->name('beli_langsung');
-Route::get('keranjang',[EcomController::class, 'keranjang'])->name('keranjang');
-Route::get('add_keranjang/{id}',[EcomController::class, 'add_keranjang'])->name('add_keranjang');
-Route::get('ecom',[EcomController::class, 'ecom'])->name('ecom');
+Route::get('/',[ProdukController::class, 'tampil_jual'])->name('index');
+Route::get('beli',[ProdukController::class, 'beli'])->name('beli');
+Route::post('beli_langsung',[ProdukController::class, 'beli_langsung'])->name('beli_langsung');
+Route::get('keranjang',[ProdukController::class, 'keranjang'])->name('keranjang');
+Route::get('add_keranjang/{id}',[ProdukController::class, 'add_keranjang'])->name('add_keranjang');
+Route::get('Produk',[ProdukController::class, 'Produk'])->name('Produk');
+Route::get('detail_transaksi',[ProdukController::class, 'detail_transaksi'])->name('detail_transaksi');
 
 Route::get('register', [PelangganController::class, 'register'])->name('register');
 Route::post('register', [PelangganController::class, 'register_action'])->name('register.action');
@@ -41,6 +42,7 @@ Route::get('pelanggan',[PelangganController::class, 'pelanggan'])->name('pelangg
 Route::get('edit_pelanggan/{id}', [PelangganController::class,'edit_pelanggan'])->name('edit_pelanggan');
 Route::put('update_pelanggan/{id}', [PelangganController::class,'update_pelanggan'])->name('update_pelanggan');
 Route::get('hapus_pelanggan/{id}', [PelangganController::class,'hapus_pelanggan'])->name('hapus_pelanggan');
+
 
 Route::get('mimin',[MiminController::class, 'mimin'])->name('mimin');
 Route::get('data',[MiminController::class, 'data'])->name('data');

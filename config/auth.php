@@ -40,6 +40,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'pelanggan' => [
+            'driver' => 'session',
+            'provider' => 'pelanggan',
+        ],
     ],
 
     /*
@@ -60,10 +64,14 @@ return [
     */
 
     'providers' => [
-        'users' => [
+        'pelanggan' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Pelanggan::class,
+        ],
+        'users' =>[
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
-        ],
+        ]
 
         // 'users' => [
         //     'driver' => 'database',
@@ -89,6 +97,12 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'pelanggan' => [
+            'provider' => 'pelanggan',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,

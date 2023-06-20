@@ -97,8 +97,14 @@
                 <div class="card-body">
                     <h5 class="card-title">{{$p->nama_produk}}</h5>
                     <p class="card-text">Rp.{{number_format($p->harga_produk)}}</p>
-                    @if(Auth::user() != null)
-                    <a href="{{route('beli')}}" class="btn btn-primary"><ion-icon name="bag-handle-outline"></ion-icon></a>
+                    @if(Auth::guard('pelanggan')->user() != null)
+                    <form action="{{route('beli_langsung')}}" method="POST">
+                        @csrf
+                        @method('POST')
+                        <input type="hidden" name="id_produk" value="{{$p->id_produk}}">
+                        <input type="hidden" name="jumlah" value="1">
+                        <button class="btn btn-primary" type="submit"><ion-icon name="bag-handle-outline"></ion-icon></button>
+                    </form>
                     <a href="{{route('add_keranjang', $p->id_produk)}}" class="btn btn-primary"><ion-icon name="cart-outline"></ion-icon></a>
                     @endif
                 </div>

@@ -7,10 +7,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class Pelanggan extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
-    protected $table = 'user';
-    protected $primaryKey ='id_user';
-    protected $fillable= ['username','password','level'];
+    protected $table = 'pelanggan';
+    protected $primaryKey='id_pelanggan';
+    protected $fillable= ['nama_pelanggan','email_pelanggan','kontak_pelanggan','alamat_pelanggan','password'];
 }

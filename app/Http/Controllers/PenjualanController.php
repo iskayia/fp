@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Penjualan;
-use App\Models\Ecom;
+use App\Models\Produk;
 use Illuminate\Http\Request;
 
 class PenjualanController extends Controller
@@ -17,7 +17,7 @@ class PenjualanController extends Controller
     }
 
     public function add_penjualan(){
-        $produk = Ecom::latest()->get();
+        $produk = Produk::latest()->get();
         return view('mimin/add_penjualan')->with('produk',$produk);
     }
 
@@ -36,7 +36,7 @@ class PenjualanController extends Controller
         ]);
         $databeli->save();
 
-        $produk = Ecom::find($request->id_produk);
+        $produk = Produk::find($request->id_produk);
         $produk->stok = $produk->stok - intval($request->jumlah_penjualan);
         $produk->save();
         return redirect()->route('penjualan')->with('success','data have been save!');
@@ -44,7 +44,7 @@ class PenjualanController extends Controller
 
     public function edit_penjualan($id){
         $penjualan= Penjualan::find($id);
-        $produk= Ecom::latest()->get();
+        $produk= Produk::latest()->get();
         return view('mimin/edit_penjualan')->with('penjualan',$penjualan)->with('produk', $produk);
     }
 
@@ -55,7 +55,7 @@ class PenjualanController extends Controller
             'tgl_penjualan'=>'required'
         ]);
         $penjualan=Penjualan::find($id);
-        $produk_before = Ecom::find($penjualan->id_produk);
+        $produk_before = Produk::find($penjualan->id_produk);
         $produk_before->stok = $produk_before->stok + intval($penjualan->jumlah_penjualan);
         $produk_before->save();
         $penjualan->update([
@@ -63,7 +63,7 @@ class PenjualanController extends Controller
             'jumlah_penjualan'=>$request->jumlah_penjualan,
             'tgl_penjualan'=>$request->tgl_penjualan
         ]);
-        $produk = Ecom::find($request->id_produk);
+        $produk = Produk::find($request->id_produk);
         $produk->stok = $produk->stok - intval($request->jumlah_penjualan);
         $produk->save();
         return redirect()->route('penjualan')->with('success','data have been save!');
@@ -72,7 +72,7 @@ class PenjualanController extends Controller
 
     public function hapus_penjualan($id){
         $penjualan=Penjualan::find($id);
-        $produk_before = Ecom::find($penjualan->id_produk);
+        $produk_before = Produk::find($penjualan->id_produk);
         $produk_before->stok = $produk_before->stok + intval($penjualan->jumlah_penjualan);
         $produk_before->save();
         $penjualan->delete();

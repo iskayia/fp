@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pembelian;
-use App\Models\Ecom;
+use App\Models\Produk;
 use Illuminate\Http\Request;
 
 class PembelianController extends Controller
@@ -17,7 +17,7 @@ class PembelianController extends Controller
     }
 
     public function add_pembelian(){
-        $produk = Ecom::latest()->get();
+        $produk = Produk::latest()->get();
         return view('mimin/add_pembelian')->with('produk',$produk);
     }
 
@@ -38,7 +38,7 @@ class PembelianController extends Controller
         ]);
         $databeli->save();
 
-        $produk = Ecom::find($request->id_produk);
+        $produk = Produk::find($request->id_produk);
         $produk->stok = $produk->stok + intval($request->jumlah_pembelian);
         $produk->save();
         return redirect()->route('pembelian')->with('success','data have been save!');
@@ -46,7 +46,7 @@ class PembelianController extends Controller
 
     public function edit_pembelian($id){
         $pembelian= Pembelian::find($id);
-        $produk= Ecom::latest()->get();
+        $produk= Produk::latest()->get();
         return view('mimin/edit_pembelian')->with('pembelian',$pembelian)->with('produk', $produk);
 
     }
@@ -59,7 +59,7 @@ class PembelianController extends Controller
             'tgl_pembelian'=>'required'
         ]);
         $pembelian= Pembelian::find($id);
-        $produk_before = Ecom::find($pembelian->id_produk);
+        $produk_before = Produk::find($pembelian->id_produk);
         $produk_before->stok = $produk_before->stok - intval($pembelian->jumlah_pembelian);
         $produk_before->save();
         $pembelian->update(
@@ -70,7 +70,7 @@ class PembelianController extends Controller
             'tgl_pembelian'=>$request->tgl_pembelian
             ]
         );
-        $produk = Ecom::find($request->id_produk);
+        $produk = Produk::find($request->id_produk);
         $produk->stok = $produk->stok + intval($request->jumlah_pembelian);
         $produk->save();
         return redirect()->route('pembelian')->with('success','data have been save!');
@@ -78,7 +78,7 @@ class PembelianController extends Controller
 
     public function hapus_pembelian($id){
         $pembelian= Pembelian::find($id);
-        $produk_before = Ecom::find($pembelian->id_produk);
+        $produk_before = Produk::find($pembelian->id_produk);
         $produk_before->stok = $produk_before->stok - intval($pembelian->jumlah_pembelian);
         $produk_before->save();
         $pembelian->delete();

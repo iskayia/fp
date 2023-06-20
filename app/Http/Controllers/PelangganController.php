@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 
-use App\Models\User;
+use App\Models\Pelanggan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -26,7 +26,7 @@ class PelangganController extends Controller
             'password' => 'required',
             'password_confirm' => 'required|same:password',
         ]);
-        $user = new User([
+        $pelanggan = new Pelanggan([
             'nama_pelanggan' => $request->nama_pelanggan,
             'email_pelanggan' => $request->email_pelanggan,
             'kontak_pelanggan' => $request->kontak_pelanggan,
@@ -34,7 +34,7 @@ class PelangganController extends Controller
             'password' => Hash::make($request->password),
 
         ]);
-        $user->save();
+        $pelanggan->save();
 
         return redirect()->route('login')->with('success', 'Registration success. Please login!');
     }
@@ -53,7 +53,7 @@ class PelangganController extends Controller
         ]);
         // var_dump(Hash::make($request->password));
         // die();
-        if (Auth::attempt(['email_pelanggan' => $request->email_pelanggan, 'password' => $request->password])) {
+        if (Auth::guard('pelanggan')->attempt(['email_pelanggan' => $request->email_pelanggan, 'password' => $request->password])) {
             $request->session()->regenerate();
             return redirect()->intended('/');
         }
@@ -65,19 +65,19 @@ class PelangganController extends Controller
 
     public function logout(Request $request)
     {
-        Auth::logout();
+        Auth::guard('pelanggan')->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         return redirect('/');
     }
 
     public function pelanggan(){
-        $pelanggan= User::all();
+        $pelanggan= Pelanggan::all();
         return view('mimin/pelanggan')->with('pelanggan',$pelanggan);
     }
 
     public function edit_pelanggan($id){
-        $pelanggan= User::find($id);
+        $pelanggan= Pelanggan::find($id);
         return view('mimin/edit_pelanggan')->with('pelanggan',$pelanggan);
     }
 
@@ -88,7 +88,7 @@ class PelangganController extends Controller
             'kontak_pelanggan' => 'required',
             'alamat_pelanggan' => 'required'
         ]);
-        $pelanggan= User::find($id);
+        $pelanggan= Pelanggan::find($id);
         $pelanggan->update([
             'nama_pelanggan' => $request->nama_pelanggan,
             'email_pelanggan' => $request->email_pelanggan,
@@ -100,7 +100,7 @@ class PelangganController extends Controller
     }
 
     public function hapus_pelanggan($id){
-        $pelanggan= User::find($id);
+        $pelanggan= Pelanggan::find($id);
         $pelanggan->delete();
         return redirect()->route('pelanggan')->with('success','data have been delete!');
     }

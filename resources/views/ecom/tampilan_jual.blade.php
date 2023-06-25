@@ -91,7 +91,7 @@
     </div>
     <div class="row row-cols-md-4 row-cols-sm-4 g-2">
         @forelse ($produk as $p)
-        <div class="col-sm-3">
+        <div class="col-sm-6">
             <div class="card">
                 <img class="img-fluid img-thumbnail" style="object-fit: cover;height: 300px;" src="gambar/{{$p->gambar_produk}}" alt="Produk Fitri Parfume">
                 <div class="card-body">

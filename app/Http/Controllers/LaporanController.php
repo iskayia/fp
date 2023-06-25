@@ -13,24 +13,21 @@ class LaporanController extends Controller
 
     public function buka_laporan(Request $request) {
         $tanggal = explode(' - ',$request->daterange);
-        $startDate = Carbon::createFromFormat('d/m/Y',$tanggal[0]);
-        $endDate = Carbon::createFromFormat('d/m/Y',$tanggal[1]);
+        $startDate = Carbon::createFromFormat('m/d/Y',$tanggal[0])->toDateString();
+        $endDate = Carbon::createFromFormat('m/d/Y',$tanggal[1])->toDateString();
         if($request->laporan=='pembelian'){
            
       
             $pembelian= Pembelian::latest()
             ->join('produk','produk.id_produk','=','pembelian.id_produk')
             ->select('pembelian.*','produk.nama_produk')
-            ->whereBetween('pembelian.created_at', [$startDate, $endDate])
+            ->whereBetween('pembelian.tgl_pembelian', [$startDate, $endDate])
             ->get();
             return view('mimin/laporan_pembelian')->with('pembelian',$pembelian);
 
         } elseif($request->laporan=='penjualan'){
 
-            $penjualan= Penjualan::latest()
-            ->join('produk','produk.id_produk','=','penjualan.id_produk')
-            ->select('penjualan.*','produk.nama_produk','produk.harga_produk')
-            ->whereBetween('penjualan.created_at', [$startDate, $endDate])
+            $penjualan= Penjualan::whereBetween('created_at', [$startDate, $endDate])
             ->get();
             return view('mimin/laporan_penjualan')->with('penjualan',$penjualan);
         }elseif($request->laporan=='keuangan'){
@@ -38,13 +35,11 @@ class LaporanController extends Controller
             $pembelian= Pembelian::latest()
             ->join('produk','produk.id_produk','=','pembelian.id_produk')
             ->select('pembelian.*','produk.nama_produk')
-            ->whereBetween('pembelian.created_at', [$startDate, $endDate])
+            ->whereBetween('pembelian.tgl_pembelian', [$startDate, $endDate])
             ->get();
 
             $penjualan= Penjualan::latest()
-            ->join('produk','produk.id_produk','=','penjualan.id_produk')
-            ->select('penjualan.*','produk.nama_produk','produk.harga_produk')
-            ->whereBetween('penjualan.created_at', [$startDate, $endDate])
+            ->whereBetween('created_at', [$startDate, $endDate])
             ->get();
 
             $total_pembelian = 0;
@@ -56,7 +51,7 @@ class LaporanController extends Controller
                 
             };
             foreach($penjualan as $p){
-                $total_penjualan += intval($p->harga_produk);
+                $total_penjualan += intval($p->pembayaran->jumlah_pembayaran);
             }
 
             $laba_rugi = $total_penjualan - $total_pembelian;

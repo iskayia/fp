@@ -14,5 +14,7 @@ class Produk extends Model
     protected $primaryKey = 'id_produk';
     protected $fillable= ['id_supplier','nama_produk','stok', 'harga_produk','gambar_produk'];
 
-
+    public function keranjang()  {
+        return $this->hasMany(Keranjang::class, 'id_produk');
+    }
 }

@@ -9,10 +9,7 @@ use Illuminate\Http\Request;
 class PenjualanController extends Controller
 {
     public function penjualan(){
-        $penjualan= Penjualan::latest()
-        ->join('produk','produk.id_produk','=','penjualan.id_produk')
-        ->select('penjualan.*','produk.nama_produk')
-        ->get();
+        $penjualan= Penjualan::latest()->get();
         return view('mimin/penjualan')->with('penjualan',$penjualan);
     }
 

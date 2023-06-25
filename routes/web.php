@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\KeranjangController;
 use App\Http\Controllers\miminController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\LaporanController;
@@ -8,6 +9,7 @@ use App\Http\Controllers\PembelianController;
 use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\SupplierController;
 use App\Models\Penjualan;
+use App\Models\ProdukPenjualan;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,17 +29,25 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/',[ProdukController::class, 'tampil_jual'])->name('index');
 Route::get('beli',[ProdukController::class, 'beli'])->name('beli');
+Route::post('update_jumlah',[ProdukController::class,'update_jumlah'])->name('update_jumlah');
+Route::post('beli_action',[ProdukController::class,'beli_action'])->name('beli_action');
 Route::post('beli_langsung',[ProdukController::class, 'beli_langsung'])->name('beli_langsung');
-Route::get('keranjang',[ProdukController::class, 'keranjang'])->name('keranjang');
-Route::get('add_keranjang/{id}',[ProdukController::class, 'add_keranjang'])->name('add_keranjang');
+Route::post('bayar_langsung',[ProdukController::class,'bayar_langsung'])->name('bayar_langsung');
 Route::get('Produk',[ProdukController::class, 'Produk'])->name('Produk');
-Route::get('detail_transaksi',[ProdukController::class, 'detail_transaksi'])->name('detail_transaksi');
+Route::get('detail_transaksi/{id}',[ProdukController::class, 'detail_transaksi'])->name('detail_transaksi');
+Route::get('list_transaksi',[ProdukController::class, 'list_transaksi'])->name('list_transaksi');
+
+
+
+Route::get('keranjang',[KeranjangController::class, 'keranjang'])->name('keranjang');
+Route::get('add_keranjang/{id}',[KeranjangController::class, 'add_keranjang'])->name('add_keranjang');
 
 Route::get('register', [PelangganController::class, 'register'])->name('register');
 Route::post('register', [PelangganController::class, 'register_action'])->name('register.action');
 Route::get('login', [PelangganController::class, 'login'])->name('login');
 Route::post('login', [PelangganController::class, 'login_action'])->name('login.action');
 Route::get('logout', [PelangganController::class, 'logout'])->name('logout');
+Route::get('akun_saya',[PelangganController::class,'akun_saya'])->name('akun_saya');
 Route::get('pelanggan',[PelangganController::class, 'pelanggan'])->name('pelanggan');
 Route::get('edit_pelanggan/{id}', [PelangganController::class,'edit_pelanggan'])->name('edit_pelanggan');
 Route::put('update_pelanggan/{id}', [PelangganController::class,'update_pelanggan'])->name('update_pelanggan');

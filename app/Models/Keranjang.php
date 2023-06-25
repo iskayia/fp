@@ -12,4 +12,12 @@ class Keranjang extends Model
    protected $primaryKey='id_keranjang';
    protected $fillable=['id_produk','id_pelanggan', 'jumlah'];
 
+   public function produk() {
+        return $this->belongsTo(Produk::class, 'id_produk');
+   }
+
+   public function pelanggan() {
+        return $this->belongsTo(Pelanggan::class, 'id_pelanggan');
+   }
+
 }

@@ -68,7 +68,7 @@
                         <th>Nama Produk</th>
                         <th>Jumlah Penjualan </th>
                         <th>Tanggal Penjualan</th>
-                        <th>Harga Produk</th>
+                        <th>Total Harga Produk</th>
 
                     </tr>
                 </thead>
@@ -80,10 +80,22 @@
                     @foreach($penjualan as $p)
                     <tr>
                         <td>{{$n++}}</td>
-                        <td>{{$p->nama_produk}}</td>
-                        <td>{{$p->jumlah_penjualan}}</td>
-                        <td>{{$p->tgl_penjualan}}</td>
-                        <td>{{$p->harga_produk}}</td>
+                        <td>
+                        @foreach ($p->produk_penjualan as $pp )
+                            <div>{{$pp->produk->nama_produk}}</div>
+                        @endforeach    
+                        </td>
+                        <td>
+                            @foreach ($p->produk_penjualan as $pp )
+                                <div>{{$pp->qty}}</div>
+                            @endforeach
+                        </td>
+                        <td style="text-align: center">@php
+                            $date=date_create($p->tgl_penjualan);
+                        @endphp
+                            {{ date_format( $date,"d F Y") }}
+                        </td>
+                        <td>{{$p->pembayaran->jumlah_pembayaran}}</td>
                     </tr>
                     @endforeach
                 <!-- </tbody> -->

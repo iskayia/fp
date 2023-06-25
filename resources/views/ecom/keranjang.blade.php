@@ -4,6 +4,7 @@
         $qty = data.value;
         $harga = data.getAttribute('data-harga');
         $id = data.getAttribute('id')
+        $id_keranjang = data.getAttribute('data-id_keranjang')
         console.log($harga * $qty)
         $('#jumharga' + $id).html($harga * $qty)
         $('#jumlahproduk' + $id).val($qty)
@@ -13,11 +14,25 @@
             $subtotal += parseInt($(this).text())
         })
         $('#subtotal').html($subtotal)
+        $.ajax({
+            url: '/update_jumlah', // Replace with your server-side route
+            method: 'POST', // Choose the appropriate HTTP method
+            data: { id_keranjang: $id_keranjang, jumlah: $qty,  _token: '{{ csrf_token() }}' },
+            success: function(response) {
+                // Handle success response
+                console.log(response);
+            },
+            error: function(xhr, status, error) {
+                // Handle error response
+                console.error(error);
+            }
+        });
     }
 </script>
 <section class="page-section " id="services" style="background-color:#FEFCF3; height:100%;">
     <div class="container">
         <a href="{{route('index')}}" class="btn btn-primary"><ion-icon name="arrow-back-outline"></ion-icon></a>
+        <br>
         <br>
         <div class="card border-0 shadow rounded">
             <div class="card-body">
@@ -42,21 +57,21 @@
                         @endphp
                         @forelse ($keranjang as $k)
                         @php
-                        $subtotal+= $k->harga_produk * $k->jumlah;
+                        $subtotal+= $k->produk->harga_produk * $k->jumlah;
                         $no++;
                         @endphp
                         <tr>
                             <th scope="row">{{$no}}</th>
                             <td>
-                                <img class="img-thumbnail" style="object-fit: cover;height: 150px;" src="gambar/{{$k->gambar_produk}}" alt="Produk Fitri Parfume">
+                                <img class="img-thumbnail" style="object-fit: cover;height: 150px;" src="gambar/{{$k->produk->gambar_produk}}" alt="Produk Fitri Parfume">
                             </td>
-                            <td>{{$k->nama_produk}}</td>
+                            <td>{{$k->produk->nama_produk}}</td>
                             <td>
-                                <input onchange="hitung(this)" id="{{$k->id_produk}}" data-harga="{{$k->harga_produk}}" type="number" value="{{$k->jumlah}}" min='1' style="width:45px;">
+                                <input onchange="hitung(this)" id="{{$k->id_produk}}" data-id_keranjang="{{$k->id_keranjang}}" data-harga="{{$k->produk->harga_produk}}" type="number" value="{{$k->jumlah}}" min='1' style="width:45px;">
                             </td>
-                            <td>{{$k->harga_produk}}</td>
+                            <td>{{$k->produk->harga_produk}}</td>
 
-                            <td class="harga" id='jumharga{{$k->id_produk}}'>{{$k->harga_produk * $k->jumlah}}</td>
+                            <td class="harga" id='jumharga{{$k->id_produk}}'>{{$k->produk->harga_produk * $k->jumlah}}</td>
                             <td class="col">
                                 
                                 <form action="{{route('beli_langsung')}}" method="POST" class="d-flex">

@@ -82,7 +82,11 @@
                         <td>{{$n++}}</td>
                         <td>{{$p->nama_produk}}</td>
                         <td>{{$p->jumlah_pembelian}}</td>
-                        <td>{{$p->tgl_pembelian}}</td>
+                        <td style="text-align: center">@php
+                            $date=date_create($p->tgl_pembelian);
+                        @endphp
+                            {{ date_format( $date,"d F Y") }}
+                        </td>
                         <td>{{$p->harga_pembelian}}</td>
                     </tr>
                     @endforeach

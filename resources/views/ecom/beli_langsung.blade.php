@@ -16,6 +16,7 @@
         console.log($harga * $qty)
         $('#jumharga').html($harga * $qty)
         $('#subtotal').html($harga * $qty)
+        $('#jumlah_pembayaran').val($harga * $qty)
     }
 </script>
 
@@ -27,7 +28,11 @@
             <br>
 
             <div class="card border-0 shadow rounded">
+            <form action="{{route('bayar_langsung')}}" method="POST">
+                @csrf
+                @method("POST")
                 <div class="card-body">
+
                     <div class="col-md-6 offset-md-3">
                         <table class="table">
                             <thead class="text-center">
@@ -46,7 +51,7 @@
                                         <label for="">{{$produk->nama_produk}}</label>
                                     </td>
                                     <td scope="col">
-                                        <input onchange="hitung(this)" id="jumlah"  data-harga="{{$produk->harga_produk}}" type="number" value="{{$jumlah}}" min='1' style="width:45px;">                                        
+                                        <input onchange="hitung(this)" id="jumlah" name="jumlah"   data-harga="{{$produk->harga_produk}}" type="number" value="{{$jumlah}}" min='1' style="width:45px;">                                        
                                     </td>
                                     <td scope="col" id="jumharga">{{$produk->harga_produk * $jumlah}}</td>
                                 </tr>
@@ -60,7 +65,9 @@
                     </div>
                     <br>
                     <div class="col-md-6 offset-md-3">
-                        <form action="">
+                        
+                            <input type="hidden" name="id_produk" value="{{$produk->id_produk}}">
+                            <input type="hidden" id="jumlah_pembayaran" name="jumlah_pembayaran" value="{{$produk->harga_produk * $jumlah}}"> 
                             <div class="form-group">
                                 <label for="exampleFormControlSelect1">Cara Pembayaran</label>
                                 <select class="form-control" id="exampleFormControlSelect1" name="id_jenis_pembayaran">
@@ -71,29 +78,34 @@
                             </div>
                             <br>
                             <div class="form-group">
-                                <label for="tipe_transaksi">Tipe Pemangambilan Produk</label>
+                                <label for="tipe_pengambilan">Tipe Pemangambilan Produk</label>
 
-                                <select class="form-control" id="tipe_transaksi" name="tipe_transaksi" onclick="showAlamat()">
-                                    <option value="ambil">Ambil</option>
-                                    <option value="antar-produk">Antar Produk</option>
+                                <select class="form-control" id="tipe_pengambilan" name="tipe_pengambilan" onclick="showAlamat()">
+                                    <option value="Ambil ke toko">Ambil ke Toko</option>
+                                    <option value="Dikirim ke alamat">Dikirim ke Alamat</option>
                                 </select>
 
                             </div>
                             <br>
                             <div class="form-group">
                                 <label for="alamat_pelanggan">Alamat</label>
-                                <input class="form-control" type="text" id="pelanggan" name="pelanggan" value="{{$pelanggan->alamat_pelanggan}}" >
-                            </div>
+                                
+                                <select class="form-control" name="id_alamat" id="">
+                                    @foreach($pelanggan->alamat as $alamat)
+                                    <option value="{{$alamat->id_alamat}}">{{$alamat->alamat}}</option>
+                                    @endforeach
+                                </select>
+                                </div>
                             <br>
                             <div class="form-group">
                                 <p class="text-justify" style="font-size: small; color:grey; ">Harap dicatat bahwa pesanan tidak dapat diubah atau dibatalkan setelah diproses.
                                     Harap dicatat bahwa proses pengiriman pesanan anda dalam 3 hari kerja setelah pesanan Anda dikirimkan.</p>
                             </div>
-                            <a href="{{route('detail_transaksi')}}" class="btn btn-danger" style="float:right">Beli Sekarang</a>
-                        </form>
+                            <button type="submit" class="btn btn-danger" style="float:right">Beli Sekarang</button>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 </section>

@@ -29,7 +29,11 @@
                                     <td>{{$p->nama_pelanggan}}</td>
                                     <td>{{$p->email_pelanggan}}</td>
                                     <td>{{$p->kontak_pelanggan}}</td>
-                                    <td>{{$p->alamat_pelanggan}}</td>
+                                    <td>
+                                        @foreach ($p->alamat as $alamat )
+                                            <div>{{$alamat->alamat}}</div>
+                                        @endforeach
+                                    </td>
                                     <td>
                                     <div class="dropdown">
                                             <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">

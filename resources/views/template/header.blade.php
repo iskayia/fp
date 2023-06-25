@@ -33,9 +33,18 @@
                     <li class="nav-item"><a class="nav-link" href="{{route('index')}}#produk">Produk</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{route('index')}}#about">Tentang Kami</a></li>
                     @if(Auth::guard('pelanggan')->user()!=null)
-                    <li class="nav-item"><a class="nav-link" href="{{route('keranjang')}}">Keranjang</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{route('index')}}#profil">Profil</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{route('logout')}}">Logout</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{route('keranjang')}}"><ion-icon name="cart-outline"></ion-icon></a></li>
+                    <div class="dropdown">
+                        <a class="btn btn-outline-light dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                        <ion-icon name="person-circle-outline"></ion-icon>
+                        </a>
+
+                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuLink">
+                            <li class="nav-item"><a class="nav-link" href="{{route('akun_saya')}}">Akun Saya</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{route('list_transaksi')}}">List Transaksi</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{route('logout')}}">Logout</a></li>
+                        </ul>
+                    </div>
                     @endif
                     @if(Auth::guard('pelanggan')->user() == null)
                     <li class="nav-item"><a class="nav-link" href="{{route('login')}}">Login</a></li>

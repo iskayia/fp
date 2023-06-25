@@ -71,6 +71,11 @@ class PelangganController extends Controller
         return redirect('/');
     }
 
+    public function akun_saya(){
+
+        return view('akun/akun_saya');
+    }
+
     public function pelanggan(){
         $pelanggan= Pelanggan::all();
         return view('mimin/pelanggan')->with('pelanggan',$pelanggan);

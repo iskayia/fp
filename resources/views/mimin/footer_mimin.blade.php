@@ -1,12 +1,9 @@
 <!-- footernih -->
+</div>
+</div>
 <footer class="footer" style=" width: -webkit-fill-available;">
         <div class="container-fluid">
           <div class="row">
-            <nav class="footer-nav">
-            <ul>
-                <li><a href="#" target="_blank">Fitri Parfum</a></li>
-              </ul>
-            </nav>
             <div class="credits ml-auto">
               <span class="copyright">
                 © 2023, made with <i class="fa fa-heart heart"></i> by Fitri Parfum
@@ -15,8 +12,6 @@
           </div>
         </div>
       </footer>
-    </div>
-  </div>
   <!--   Core JS Files   -->
   <script src="{{asset('admin/assets/js/core/jquery.min.js')}}"></script>
   <script src="{{asset('admin/assets/js/core/popper.min.js')}}"></script>

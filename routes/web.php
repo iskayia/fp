@@ -77,6 +77,7 @@ Route::post('add_penjualan_action',[PenjualanController::class, 'add_penjualan_a
 Route::get('edit_penjualan/{id}', [PenjualanController::class,'edit_penjualan'])->name('edit_penjualan');
 Route::put('update_penjualan/{id}', [PenjualanController::class,'update_penjualan'])->name('update_penjualan');
 Route::get('hapus_penjualan/{id}', [PenjualanController::class,'hapus_penjualan'])->name('hapus_penjualan');
+Route::get('detail_penjualan/{id}', [PenjualanController::class,'detail_penjualan'])->name('detail_penjualan');
 
 
 Route::get('supplier',[SupplierController::class, 'supplier'])->name('supplier');

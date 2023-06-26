@@ -76,4 +76,9 @@ class PenjualanController extends Controller
         return redirect()->route('penjualan')->with('success','data have been delete!');
 
     }
+
+    public function detail_penjualan($id){
+        $penjualan=Penjualan::find($id);
+        return view('mimin/detail_penjualan')->with('penjualan',$penjualan);
+    }
 }

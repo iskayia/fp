@@ -2,15 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pembayaran;
 use App\Models\Penjualan;
 use App\Models\Produk;
+use App\Models\StatusPembayaran;
 use Illuminate\Http\Request;
 
 class PenjualanController extends Controller
 {
     public function penjualan(){
         $penjualan= Penjualan::latest()->get();
-        return view('mimin/penjualan')->with('penjualan',$penjualan);
+        $pembayaran= Pembayaran::latest()
+        ->join('status_pembayaran','status_pembayaran.id_status_pembayaran','=','pembayaran.id_status_pembayaran')
+        ->select('pembayaran.*','status_pembayaran.status_pembayaran')
+        ->get();
+        return view('mimin/penjualan')->with('penjualan',$penjualan)->with('pembayaran',$pembayaran);
     }
 
     public function add_penjualan(){

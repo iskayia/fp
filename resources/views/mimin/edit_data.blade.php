@@ -59,6 +59,14 @@
               </div>
             </div>
             <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label >Deskripsi</label>
+                  <input type="text" name="deskripsi" placeholder="isi deskripsi disini" class="form-control" value="{{$produk->deskripsi}}">
+                </div>
+              </div>
+            </div>
+            <div class="row">
               <div class=" ml-auto mr-auto text-center">
                 <button type="submit" class="btn btn-primary btn-round">Simpan</button>
               </div>

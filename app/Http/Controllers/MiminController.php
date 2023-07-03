@@ -15,6 +15,10 @@ class MiminController extends Controller
 
     }
 
+    public function chart(){
+        
+    }
+
     public function data(){
         $produk= Produk::latest()
         ->join('supplier','supplier.id_supplier','=','produk.id_supplier')
@@ -36,7 +40,8 @@ class MiminController extends Controller
             'id_supplier'=>'required',
             'stok'=>'required',
             'harga_produk'=>'required',
-            'gambar_produk'=>'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            'gambar_produk'=>'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'deskripsi'=>'required',
         ]);
 
         $gambar  = 'FP-'.time().'.'.$request->gambar_produk->extension();
@@ -48,7 +53,8 @@ class MiminController extends Controller
             'id_supplier'=>$request->id_supplier,
             'stok'=>$request->stok,
             'harga_produk'=>$request->harga_produk,
-            'gambar_produk'=>$gambar
+            'gambar_produk'=>$gambar,
+            'deskripsi'=>$request->deskripsi
         ]);
         $dataproduk->save();
 
@@ -68,7 +74,8 @@ class MiminController extends Controller
             'id_supplier'=>'required',
             'stok'=>'required',
             'harga_produk'=>'required',
-            'gambar_produk'=>'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            'gambar_produk'=>'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'deskripsi'=>'required',
         ]);
         $produk = Produk::findOrFail($id);
         
@@ -88,7 +95,8 @@ class MiminController extends Controller
                     'id_supplier'=>$request->id_supplier,
                     'stok'=>$request->stok,
                     'harga_produk'=>$request->harga_produk,
-                    'gambar_produk'=>$gambar
+                    'gambar_produk'=>$gambar,
+                    'deskripsi'=>$request->deskripsi
                 ]);
         } else{
             //update tanpa gambar 
@@ -96,7 +104,8 @@ class MiminController extends Controller
                 'nama_produk'=>$request->nama_produk, 
                 'id_supplier'=>$request->id_supplier,
                 'stok'=>$request->stok,
-                'harga_produk'=>$request->harga_produk
+                'harga_produk'=>$request->harga_produk,
+                'deskripsi'=>$request->deskripsi
             ]);
         }
         return redirect()->route('data')->with('success','data have been save!');

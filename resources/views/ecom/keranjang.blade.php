@@ -83,7 +83,7 @@
                                 </form>
                                 <br>
                                 <form action="" class="d-flex">
-                                    <button class="btn btn-danger"><ion-icon name="trash-outline"></ion-icon></button>
+                                    <a href="{{route('hapus_keranjang',$k->id_keranjang)}}" class="btn btn-danger"><ion-icon name="trash-outline"></ion-icon></a>
                                 </form>
                             </td>
                         </tr>

@@ -23,6 +23,8 @@
                                 <th>Jumlah Produk Terjual</th>
                                 <th>Tanggal Penjualan</th>
                                 <th>Total Harga</th>
+                                <th>Status Pembayaran</th>
+                                <th>Status Transaksi</th>
                                 <th>Aksi</th>
                             </thead>
                             <tbody>
@@ -53,6 +55,10 @@
                                         <td>
                                             {{$p->pembayaran->jumlah_pembayaran}}
                                         </td>
+                                        <td>
+                                            {{$p->pembayaran->status_pembayaran->status_pembayaran}}
+                                        </td>
+                                        <td>{{$p->status_transaksi}}</td>
                                         <td>
                                             <div class="dropdown">
                                                 <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle"

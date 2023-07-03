@@ -23,6 +23,11 @@ class ProdukController extends Controller
         return view('ecom/e_index', ['produk' => $produk]);
     }
 
+    public function detail_produk($id){
+        $produk= Produk::findOrFail($id);
+        return view('ecom/detail_produk',['produk'=>$produk]);
+    }
+
     public function ecom_request(Request $request)
     {
         $request->validate([
@@ -160,4 +165,5 @@ class ProdukController extends Controller
         $penjualan = Penjualan::latest()->get();
         return view('ecom/list_transaksi', ['penjualan' => $penjualan]);
     }
+
 }

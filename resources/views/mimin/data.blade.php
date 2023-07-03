@@ -24,6 +24,7 @@
                                             <th>Stok</th>
                                             <th>Harga</th>
                                             <th>Gambar Produk</th>
+                                            <th>Deskripsi Produk</th>
                                             <th>Aksi</th>
                                         </thead>
                                         <tbody>
@@ -40,6 +41,7 @@
                                                 <td>
                                                     <img src="gambar/{{$p->gambar_produk}}" width="100" height="100" alt="{{$p->gambar_produk}}">
                                                 </td>
+                                                <td>{{$p->deskripsi}}</td>
                                                 <td>
                                                     <div class="dropdown">
                                                         <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">

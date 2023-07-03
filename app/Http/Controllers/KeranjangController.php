@@ -23,12 +23,12 @@ class KeranjangController extends Controller
     public function add_keranjang($id){
         $keranjang = Keranjang::latest()
                         ->where('id_produk', $id)
-                        ->where('id_pelanggan', Auth::id())->first();
+                        ->where('id_pelanggan', Auth::guard('pelanggan')->id())->first();
         if($keranjang == null){
             $keranjang=new Keranjang([
                 'id_produk'=>$id,
                 'jumlah'=>1,
-                'id_pelanggan'=>Auth::id()
+                'id_pelanggan'=>Auth::guard('pelanggan')->id()
             ]);
             $keranjang->save();
         }else{
@@ -37,5 +37,11 @@ class KeranjangController extends Controller
         }
         return redirect('keranjang');
         
+    }
+
+    public function hapus_keranjang($id){
+        $keranjang= Keranjang::findOrFail($id);
+        $keranjang->delete();
+        return redirect()->route('keranjang')->with('success','data berhasil dihapus!');
     }
 }

@@ -28,6 +28,7 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/',[ProdukController::class, 'tampil_jual'])->name('index');
+Route::get('detail_produk/{id}',[ProdukController::class,'detail_produk'])->name('detail_produk');
 Route::get('beli',[ProdukController::class, 'beli'])->name('beli');
 Route::post('update_jumlah',[ProdukController::class,'update_jumlah'])->name('update_jumlah');
 Route::post('beli_action',[ProdukController::class,'beli_action'])->name('beli_action');
@@ -41,6 +42,7 @@ Route::get('list_transaksi',[ProdukController::class, 'list_transaksi'])->name('
 
 Route::get('keranjang',[KeranjangController::class, 'keranjang'])->name('keranjang');
 Route::get('add_keranjang/{id}',[KeranjangController::class, 'add_keranjang'])->name('add_keranjang');
+Route::get('hapus_keranjang/{id}',[KeranjangController::class,'hapus_keranjang'])->name('hapus_keranjang');
 
 Route::get('register', [PelangganController::class, 'register'])->name('register');
 Route::post('register', [PelangganController::class, 'register_action'])->name('register.action');

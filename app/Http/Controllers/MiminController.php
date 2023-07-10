@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pembelian;
 use App\Models\Produk;
 use App\Models\Supplier;
 use Illuminate\Support\Facades\Auth;
@@ -11,7 +12,9 @@ use Illuminate\Support\Facades\Storage;
 class MiminController extends Controller
 {
     public function mimin(){
-        return view('mimin/beranda');
+        $produk= Produk::latest()->where('stok', '<', 10)->get();
+
+        return view('mimin/beranda')->with('produk',$produk);
 
     }
 
@@ -116,6 +119,44 @@ class MiminController extends Controller
         Storage::delete('public/gambar/'.$produk->gambar_produk);
         $produk->delete();
         return redirect()->route('data')->with('success','data berhasil dihapus!');
+    }
+
+    public function cari_adm(Request $request){
+        if($request->has('cari_adm')){
+            $produk= Produk::where('nama_produk','LIKE','%'.$request->cari_adm.'%')->get();
+        }else{
+            $produk= Produk::All();
+        }
+        return view('mimin/data',['produk'=>$produk]);
+    }
+
+    public function add_stok($id){
+        $produk= Produk::findorFail($id);
+        $namaproduk = $produk->nama_produk;
+        return view('mimin/add_stok',['namaproduk'=>$namaproduk]);
+    }
+
+
+    public function add_stok_action(Request $request){
+        $request->validate([
+            'id_produk'=>'required',
+            'jumlah_pembelian'=>'required',
+            'harga_pembelian'=>'required',
+            'tgl_pembelian'=>'required'
+        ]);
+        $pembelian= Pembelian::find('id_produk');
+        $pembelian->update(
+            [
+            'id_produk'=>$request->id_produk,
+            'jumlah_pembelian'=>$request->jumlah_pembelian,
+            'harga_pembelian'=>$request->harga_pembelian,
+            'tgl_pembelian'=>$request->tgl_pembelian
+            ]
+        );
+        $produk = Produk::find($request->id_produk);
+        $produk->stok = $produk->stok + intval($request->jumlah_pembelian);
+        $produk->save();
+        return redirect()->route('mimin')->with('success','data have been save!');
     }
 
 }

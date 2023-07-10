@@ -4,6 +4,19 @@
     function redirectToPage(url) {
         window.location.href = url;
     }
+
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var dropdownItems = document.querySelectorAll('.dropdown-item');
+        dropdownItems.forEach(function(item) {
+            item.addEventListener('click', function() {
+                var gender = this.getAttribute('data-value');
+                document.querySelector('#filterForm input[name="gender"]').value = gender;
+                document.querySelector('#filterForm').submit();
+            });
+        });
+    });
+
 </script>
 <!-- Masthead-->
 <header class="">
@@ -58,13 +71,6 @@
             <span class="visually-hidden">Next</span>
         </button>
     </div>
-    <!-- <div class="container">
-            <div class="">Selamat Datang di Fitri Parfum!</div>
-            <div class="masthead-heading text-uppercase">Warnai Harimu dengan Aroma yang menyegarkan</div>
-            @if (Auth::user() == null)
-<a class="btn btn-primary btn-xl text-uppercase" href="{{ route('login') }}">Login untuk Telusuri Lebih Lanjut</a>
-@endif
-        </div> -->
 </header>
 
 <!-- Services-->
@@ -78,10 +84,6 @@
             <div class="col-md-4">
                 <img class="img-fluid " style="object-fit: cover;height: 300px;"
                     src="{{ asset('tempenjualan/assets/img/vector6.png') }}" alt="temukan produk">
-                <!-- <span class="fa-stack fa-4x">
-                    <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                    <i class="fas fa-laptop fa-stack-1x fa-inverse"></i>
-                </span> -->
                 <h4 class="my-3">Temukan Parfum</h4>
                 <p class="text-muted">Temukan arfum yang akan anda beli </p>
             </div>
@@ -108,15 +110,15 @@
                 <h2 class="section-heading text-uppercase ">Produk Toko kami</h2>
                 <h3 class="section-subheading text-muted border-bottom"></h3>
             </div>
-            <div class="drop-down"></div>
-            <button class="btn btn-primary"><i class="bi bi-list-ul"></i></button>
             <br>
-            <div class="navbar navbar-light bg-light">
-                <form class="form-inline">
-                  <input class="form-control mr-sm-2" type="search" placeholder="Cari" aria-label="Cari">
-                  <button class="btn btn-outline-primary my-2 my-sm-0" type="submit"><i class="bi bi-search"></i></button>
-                </form>
-            </div>
+            <nav class="navbar navbar-light bg-light">
+                <div class="container-fluid">
+                  <form action="{{route('cari')}}" method="GET" class="d-flex">
+                    <input class="form-control me-2" name="cari" type="search" placeholder="Cari" aria-label="cari">
+                    <button class="btn btn-outline-success" type="submit"><i class="bi bi-search"></i></button>
+                  </form>
+                </div>
+              </nav>
             <br>
         </div>
         <div class="row row-cols-md-4 row-cols-sm-4 g-2">
@@ -125,15 +127,19 @@
                     <div class="card  image-container">
                         <img class="img-fluid img-thumbnail" style="object-fit: cover;height: 300px;widht:300px;"
                             src="gambar/{{ $p->gambar_produk }}" alt="Produk Fitri Parfume">
-                        <a href="{{ route('add_keranjang', $p->id_produk) }}"
-                            class="btn btn-primary image-button">Tambah
-                            ke Kerajang<ion-icon name="cart-outline"></ion-icon></a>
+
+                          <a href="{{ route('add_keranjang', $p->id_produk) }}"
+                            class="btn btn-primary image-button">Tambah ke Kerajang<ion-icon name="cart-outline"></ion-icon></a>
+                            
                         <div class="card-body">
-                            <h5 class="card-title">{{ $p->nama_produk }}</h5>
-                            <h6 class="card-text" style="color: orange;"> Rp.{{ number_format($p->harga_produk) }}
+                            <h6 class="card-title">{{ $p->nama_produk }}</h6>
+                            <i class="bi bi-star-fill" style="color: orange; text-size:8px;"></i><span class="portfolio-caption-subheading text-muted" style="font-size:9px;">3,5</span>
+                            <h6 class="card-text" style="color: orange; font-size:26px;"> Rp.{{ number_format($p->harga_produk) }}
                             </h6>
-                            <p class="portfolio-caption-subheading text-muted"> Stok : {{ $p->stok }}</p>
+                            <p class="portfolio-caption-subheading text-muted" style="font-size: 9px;"> Stok : {{ $p->stok }}</p>                          
                         </div>
+                            <button type="button" class="btn btn-primary image-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                              Tambah ke Keranjang</button>
                     </div>
 
                 </div>
@@ -145,6 +151,25 @@
         </div>
     </div>
 </section>
+
+{{-- modal perintah login jika belum login --}}
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
 <!-- About-->
 <section class="page-section" id="about">
     <div class="container">
@@ -187,72 +212,17 @@
     </div>
 </footer>
 
-<!-- selamat datang modals -->
 
-<div class="modal fade" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" id="modalChoice">
-    <div class="modal-dialog">
-        <div class="modal-content rounded-3 shadow">
-            <div class="modal-body p-4 text-center">
-                <h5 class="mb-0">Selamat Datang di Fitri Parfum!</h5>
-                <p class="mb-0">Mari cari parfum yang kamu sukai dan warnai harimu dengan aroma yang menyegarkan </p>
-            </div>
-            <div class="modal-footer flex-nowrap p-0">
-                <button type="button " data-bs-dismiss="modal"
-                    class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end"><strong>Oke!</strong></button>
-            </div>
+{{-- <form>
+    <div class="input-group no-border">
+      <input type="text" value="" class="form-control" placeholder="Search...">
+      <div class="input-group-append">
+        <div class="input-group-text">
+          <i class="nc-icon nc-zoom-split"></i>
         </div>
+      </div>
     </div>
-</div>
+  </form> --}}
 
-<!-- Portfolio Modals-->
-<!-- Portfolio item 1 modal popup-->
-<div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="close-modal" data-bs-dismiss="modal"><img src="gambar/{{ $p->gambar_produk }}"
-                    alt="Close modal" /></div>
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-8">
-                        <div class="modal-body">
-                            <!-- Project details-->
-                            <h2 class="text-uppercase">Project Name</h2>
-                            <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                            <img class="img-fluid d-block mx-auto" src="gambar/{{ $p->gambar_produk }}"
-                                alt="..." />
-                            <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur
-                                adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt
-                                repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae,
-                                nostrum, reiciendis facere nemo!</p>
-                            <ul class="list-inline">
-                                <li>
-                                    <strong>Client:</strong>
-                                    Threads
-                                </li>
-                                <li>
-                                    <strong>Category:</strong>
-                                    Illustration
-                                </li>
-                            </ul>
-                            <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal"
-                                type="button">
-                                <i class="fas fa-xmark me-1"></i>
-                                Close Project
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
-    $(document).ready(function() {
-        var modalChoice = document.getElementById('modalChoice');
-        modalChoice.show()
-
-    })
-</script>
 
 @include('template/footer')

@@ -98,10 +98,11 @@
                                 </div>
                             <br>
                             <div class="form-group">
-                                <p class="text-justify" style="font-size: small; color:grey; ">Harap dicatat bahwa pesanan tidak dapat diubah atau dibatalkan setelah diproses.
+                                <p class="text-justify" style="font-size: 11px; color:grey; ">Harap dicatat bahwa pesanan tidak dapat diubah atau dibatalkan setelah diproses.
                                     Harap dicatat bahwa proses pengiriman pesanan anda dalam 3 hari kerja setelah pesanan Anda dikirimkan.</p>
                             </div>
                             <button type="submit" class="btn btn-danger" style="float:right">Beli Sekarang</button>
+                            <br>
                         </div>
                     </div>
                 </div>

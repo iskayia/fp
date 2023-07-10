@@ -23,6 +23,7 @@
                         <input type="hidden" name="id_produk" value="{{$p->produk_penjualan[0]->id_produk}}">
                         <input type="hidden" name="jumlah" value="1">
                         <button class="btn btn-primary" type="submit"><ion-icon name="bag-handle-outline"></ion-icon> Beli Lagi</button>
+                        <a href="{{route('komentar')}}" class="btn btn-primary">Beri Komentar</a>
                     </form>
                     @endif 
       </div>

@@ -1,7 +1,9 @@
 @include('template/header')
 <section class="page-section center " id="services" style="background-color:#FEFCF3; height:100%; ">
     <h3 style="text-align: center;">Detail Produk</h3>
+    <br>
     <div class="card-body border-down" style="display: flex; justify-content: center; align-items: center;">
+        <a href="{{route('index')}}" class="btn"><i class="bi bi-arrow-left-circle-fill"></i></a>
         <br>
 
         <div class="card mb-3 shadow-sm" style="max-width: 75%; ">
@@ -13,20 +15,23 @@
                 <div class="col-md-8">
                     <div class="card-body">
                         <h4 class="card-title">{{ $produk->nama_produk }}</h4>
-                        <p>Terjual : 165 pcs</p>
-                        <br>
-                        <h6 class="card-text" style="color: orange;"> Rp.{{ number_format($produk->harga_produk) }}</h6>
-                        <p class="card-text">{{ $produk->deskripsi }}</p>
+                        <p class="portfolio-caption-subheading text-muted" style="font-size:11px;">Terjual : 165 pcs</p>
+                        <h5 class="card-text" style="color: orange; "> Rp.{{ number_format($produk->harga_produk) }}</h5>
+                        <p class="card-text" style="text-align: justify; font-size: 15px;">{{ $produk->deskripsi }}</p>
                         <div class=""  style="height: 36px; widht:55px;">
                             <label for="">Jumlah : </label>
-                            <button class="btn btn-primary">+</button><input class="col-sm-1"
-                                type="text"><button class="btn btn-primary"
-                            >-</button>
+                            <input class="col-sm-1" type="number">
                         </div>
                         <br>
                         <br>
                         <div class="row">
-                            <td>
+                            <div class="col-md-1">
+                                <a href="{{ route('add_keranjang', $produk->id_produk) }}" class="btn btn-primary">
+                                    <ion-icon name="cart-outline"></ion-icon>
+                                </a>
+                            </div>
+                            <br>
+                            <div class="col-md-1">
                                 @if (Auth::guard('pelanggan')->user() != null)
                                     <form action="{{ route('beli_langsung') }}" method="POST">
                                         @csrf
@@ -38,12 +43,22 @@
                                         </button>
                                     </form>
                                 @endif
-                            </td>
-                            <td>
-                                <a href="{{ route('add_keranjang', $produk->id_produk) }}" class="btn btn-primary">
-                                    <ion-icon name="cart-outline"></ion-icon>
-                                </a>
-                            </td>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body border-top">
+                        <h4 class="text-center">Komentar</h4>
+                        <div class="row">
+                            <div class="col-md-12 border-top ">
+                                <label for="">Anonym</label>
+                                <i class="bi bi-star-fill" style="color: orange; text-size:8px;"></i><span class="portfolio-caption-subheading text-muted" style="font-size:9px;">3,5</span>
+                                <p> wah bagus</p>
+                            </div>
+                            <div class="col-md-12 border-top ">
+                                <label for="">Anon</label>
+                                <i class="bi bi-star-fill" style="color: orange; text-size:8px;"></i><span class="portfolio-caption-subheading text-muted" style="font-size:9px;">4</span>
+                                <p> nice</p>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -11,6 +11,10 @@ class LaporanController extends Controller
         return view('mimin/laporan');
     }
 
+    public function laporan_pembelian(){
+        return view('mimin.laporan_listpembelian');
+    }
+
     public function buka_laporan(Request $request) {
         $tanggal = explode(' - ',$request->daterange);
         $startDate = Carbon::createFromFormat('m/d/Y',$tanggal[0])->toDateString();

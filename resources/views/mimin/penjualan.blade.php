@@ -3,15 +3,10 @@
 <div class="content">
     <div class="row">
         <div class="col-md-12">
-            <h3 class="description">Penjualan</h3>
+            <h3 class="description"> Data Penjualan</h3>
             <div class="card">
                 <div class="card-header">
                     <div class="">
-                        <div class="pull-left">
-                            <h4 class="card-title">Tabel Penjualan</h4>
-                        </div>
-                        <div class="pull-right"><a href="{{ route('add_penjualan') }}" class="btn btn-info btn-sm">
-                                <i class="nc-icon nc-simple-add text-white"> Tambah Penjualan</i></a></div>
                     </div>
                 </div>
                 <div class="card-body">
@@ -56,7 +51,7 @@
                                             {{$p->pembayaran->jumlah_pembayaran}}
                                         </td>
                                         <td>
-                                            {{$p->pembayaran->status_pembayaran->status_pembayaran}}
+                                            {{$p->pembayaran->status_pembayaran}}
                                         </td>
                                         <td>{{$p->status_transaksi}}</td>
                                         <td>

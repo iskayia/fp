@@ -10,12 +10,14 @@ use App\Models\JenisPembayaran;
 use App\Models\Pelanggan;
 use App\Models\Penjualan;
 use App\Models\ProdukPenjualan;
+use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Contracts\Service\Attribute\Required;
 
 class ProdukController extends Controller
 {
+   
     public function produk()
     {
         $produk = Produk::latest()->get();
@@ -108,7 +110,9 @@ class ProdukController extends Controller
     {
         $id_produk = $request->id_produk;
         $jumlah = $request->jumlah;
-        $produk = Produk::findOrfail($id_produk);
+        $produk =Produk::find($id_produk);
+        $produk->stok = $produk->stok - intval($jumlah);
+        $produk->save();
         $jenis_pembayaran = JenisPembayaran::latest()->get();
         $pelanggan = Pelanggan::findOrFail(Auth::guard('pelanggan')->id());
 
@@ -145,7 +149,7 @@ class ProdukController extends Controller
             ]);
             Pembayaran::create([
                 'id_penjualan' => $penjualan->id_penjualan,
-                'id_status_pembayaran' => 1, //belum lunas
+                'status_pembayaran' => 'Menunggu Pembayaran','Lunas',
                 'id_jenis_pembayaran' => $request->id_jenis_pembayaran,
                 'jumlah_pembayaran' => $request->jumlah_pembayaran
             ]);
@@ -160,10 +164,53 @@ class ProdukController extends Controller
         return view('ecom/detail_transaksi', ['penjualan' => $penjualan]);
     }
 
+    public function bayar($id){
+        $penjualan = Penjualan::findOrFail($id);
+        return view('ecom/bayar', ['penjualan' => $penjualan]);
+    }
+
+    public function bayar_action(Request $request){
+        $request->validate([
+            'bukti_bayar'=>'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+        $gambar  = 'FP-'.time().'.'.$request->bukti_bayar->extension();
+
+        $request->bukti_bayar->move(public_path('gambar'), $gambar);
+
+        $pembayaran = new Pembayaran([
+            
+        ]);
+        return redirect()->route('ecom/detail_transaksi')->with('success','data have been save!');
+    }
     public function list_transaksi()
     {
         $penjualan = Penjualan::latest()->get();
         return view('ecom/list_transaksi', ['penjualan' => $penjualan]);
     }
+
+    public function cari(Request $request){
+        if($request->has('cari')){
+            $produk= Produk::where('nama_produk','LIKE','%'.$request->cari.'%')->get();
+        }else{
+            $produk= Produk::All();
+        }
+        return view('ecom/tampilan_jual',['produk'=>$produk]);
+    }
+
+    public function rate(){
+        return view('ecom.tampilan_jual');
+    }
+
+    public function komentar(){
+        return view('ecom.komentar');
+    }
+
+    public function filter(Request $request)
+    {
+       
+    
+        return view('ecom.tampilan_jual');
+    }
+
 
 }

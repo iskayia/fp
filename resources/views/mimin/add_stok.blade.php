@@ -8,19 +8,14 @@
                     <h5 class="card-title">Tambah Data Pembelian</h5>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('add_pembelian_action') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{route('add_stok_action')}}" method="PUT" enctype="multipart/form-data">
                         @csrf
-                        @method("POST")
+                        @method("PUT")
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>Produk</label>
-                                    <select class="form-control" name="id_produk">
-                                        <option selected>Pilih produk</option>
-                                        @foreach($produk as $p)
-                                        <option value="{{$p->id_produk}}">{{$p->nama_produk}}</option>
-                                        @endforeach
-                                    </select>
+                                    <input type="text" class="form-control" value="{{$namaproduk}}" disabled>
                                 </div>
                             </div>
                         </div>
@@ -28,19 +23,19 @@
                             <div class="col-md-3 px-1">
                                 <div class="form-group">
                                     <label>Jumlah Produk</label>
-                                    <input type="number" class="form-control" placeholder="1" name="jumlah_pembelian">
+                                    <input type="number" class="form-control" placeholder="1" name="jumlah_pembelian" value="#">
                                 </div>
                             </div>
                             <div class="col-md-4 pl-1">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Harga Beli/pcs</label>
-                                    <input type="number" class="form-control" placeholder="1000" name="harga_pembelian">
+                                    <input type="number" class="form-control" placeholder="1000" name="harga_pembelian" value="#">
                                 </div>
                             </div>
                             <div class="col-md-4 pl-1">
                                 <div class="form-group">
                                     <label>Tanggal Entri</label>
-                                    <input class="form-control date-picker" name="tgl_pembelian" placeholder="Masukkan tanggal entri" type="date">
+                                    <input class="form-control date-picker" name="tgl_pembelian" placeholder="Masukkan tanggal entri" type="date" value="#">
                                 </div>
                             </div>
                         </div>

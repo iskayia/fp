@@ -69,7 +69,7 @@
                             <td>
                                 <input onchange="hitung(this)" id="{{$k->id_produk}}" data-id_keranjang="{{$k->id_keranjang}}" data-harga="{{$k->produk->harga_produk}}" type="number" value="{{$k->jumlah}}" min='1' style="width:45px;">
                             </td>
-                            <td>{{$k->produk->harga_produk}}</td>
+                            <td>{{$k->produk->harga_produk}} <label for="">/pcs</label></td>
 
                             <td class="harga" id='jumharga{{$k->id_produk}}'>{{$k->produk->harga_produk * $k->jumlah}}</td>
                             <td class="col">

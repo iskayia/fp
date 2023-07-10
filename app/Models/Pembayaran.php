@@ -20,7 +20,5 @@ class Pembayaran extends Model
         return $this->belongsTo(Penjualan::class, 'id_penjualan');
     }
 
-    public function status_pembayaran() {
-        return $this->belongsTo(StatusPembayaran::class, 'id_status_pembayaran');
-    }
+   
 }

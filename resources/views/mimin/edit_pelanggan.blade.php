@@ -39,7 +39,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>Alamat Pelanggan</label>
-                                    <input type="text" class="form-control" value="{{$pelanggan->alamat_pelanggan}}" name="alamat_pelanggan">
+                                    <input type="text" class="form-control" value="{{$pelanggan->alamat_pelanggan}}" name="alamat_pelanggan" placeholder="Alamat pelanggan" disabled>
                                 </div>
                             </div>
                         </div>

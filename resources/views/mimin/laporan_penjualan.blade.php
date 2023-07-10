@@ -95,7 +95,7 @@
                         @endphp
                             {{ date_format( $date,"d F Y") }}
                         </td>
-                        <td>{{$p->pembayaran->jumlah_pembayaran}}</td>
+                        <td>Rp. {{number_format($p->pembayaran->jumlah_pembayaran)}}</td>
                     </tr>
                     @endforeach
                 <!-- </tbody> -->

@@ -87,7 +87,7 @@
                         @endphp
                             {{ date_format( $date,"d F Y") }}
                         </td>
-                        <td>{{$p->harga_pembelian}}</td>
+                        <td>Rp. {{number_format($p->harga_pembelian)}}</td>
                     </tr>
                     @endforeach
                 <!-- </tbody> -->

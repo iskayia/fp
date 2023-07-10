@@ -53,15 +53,15 @@
                 </tr>
                 <tr>
                     <td>Total Penjualan</td>
-                    <td>{{$total_penjualan}}</td>
+                    <td>Rp. {{number_format($total_penjualan)}}</td>
                 </tr>
                 <tr>
                     <td>Total Pembelian</td>
-                    <td>{{$total_pembelian}}</td>
+                    <td>Rp. {{number_format($total_pembelian)}}</td>
                 </tr>
                 <tr>
                     <td>Laba/Rugi</td>
-                    <td>{{$laba_rugi}}</td>
+                    <td>Rp. {{number_format($laba_rugi)}}</td>
                 </tr>
 
             </table>

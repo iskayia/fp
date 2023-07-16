@@ -13,20 +13,20 @@
         <form action="{{ route('register.action') }}" method="POST">
             @csrf
             <div class="form-outline mb-4">
-                <label>Username <span class="text-danger">*</span></label>
-                <input class="form-control" type="username" name="username" value="{{ old('username') }}" />
+                <label>Nama <span class="text-danger">*</span></label>
+                <input class="form-control" type="username" name="nama_pelanggan" />
+            </div>
+            <div class="form-outline mb-4">
+                <label>Email <span class="text-danger">*</span></label>
+                <input class="form-control" type="email" name="email_pelanggan" />
             </div>
            <div class="form-outline mb-4">
-                <label>Password <span class="text-danger">*</span></label>
+                <label>Kata Sandi <span class="text-danger">*</span></label>
                 <input class="form-control" type="password" name="password" />
             </div>
            <div class="form-outline mb-4">
-                <label>Password Confirmation<span class="text-danger">*</span></label>
+                <label>Ulangi Kata Sandi<span class="text-danger">*</span></label>
                 <input class="form-control" type="password" name="password_confirm" />
-            </div>
-           <div class="form-outline mb-4">
-                <label>Position <span class="text-danger">*</span></label>
-                <input class="form-control" type="text" name="level" value="{{ old('level') }}" />
             </div>
            <div class="form-outline mb-4">
                 <button class="btn btn-warning">Daftar</button>

@@ -29,10 +29,17 @@ class UserController extends Controller
         ]);
         // var_dump(Hash::make($request->password));
         // die();
-        if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
-            $request->session()->regenerate();
-            return redirect()->intended('/mimin');
-        }
+        // if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
+        //     $request->session()->regenerate();
+        //     return redirect()->intended('/mimin');
+        // }
+
+        $credentials = $request->only('username', 'password');
+        
+            if (Auth::attempt($credentials)) {
+                $request->session()->regenerate();
+                return redirect()->intended('/mimin');
+            }
 
         return back()->withErrors([
             'password' => 'Wrong username or password',
@@ -42,4 +49,37 @@ class UserController extends Controller
         $user= User::get();
         return view('mimin.adm_profile')->with('user',$user);
     }
+
+    // public function authenticate_admin(Request $request)
+    // {   
+    //     $request->validate([
+    //         'email'=>'required|string',
+    //         'password'=>'required|string'
+    //     ]);
+    //     $user = User::where('email', $request->email)->first();
+        
+    //     if($user != null) {
+    //         if ($user->status == 0) {
+    //             return redirect()
+    //                 ->back()
+    //                 ->withInput()
+    //                 ->with([
+    //                     'error' => 'akun belum aktif silakan hubungi admin Dapur Digital'
+    //                 ]);
+    //         }
+    //         $credentials = $request->only('email', 'password');
+        
+    //         if (Auth::attempt($credentials)) {
+    //             $request->session()->regenerate();
+    //             return redirect('/');
+    //         }
+    //     }
+    
+    //     return redirect()
+    //             ->back()
+    //             ->withInput()
+    //             ->with([
+    //                 'error' => 'email atau Password salah'
+    //             ]);
+    // }
 }

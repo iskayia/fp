@@ -174,13 +174,13 @@ class ProdukController extends Controller
             'bukti_bayar'=>'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
         $gambar  = 'FP-'.time().'.'.$request->bukti_bayar->extension();
+        $id_penjualan = $request->id_penjualan;
 
         $request->bukti_bayar->move(public_path('gambar'), $gambar);
-
-        $pembayaran = new Pembayaran([
-            
-        ]);
-        return redirect()->route('ecom/detail_transaksi')->with('success','data have been save!');
+        $pembayaran = Pembayaran::where('id_penjualan', '=', $id_penjualan)->first();
+        $pembayaran->bukti_bayar=$gambar;
+        $pembayaran->save();
+        return redirect()->route('bayar', $id_penjualan)->with('success','data have been save!');
     }
     public function list_transaksi()
     {

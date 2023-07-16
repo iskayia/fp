@@ -21,16 +21,12 @@ class PelangganController extends Controller
         $request->validate([
             'nama_pelanggan' => 'required',
             'email_pelanggan' => 'required',
-            'kontak_pelanggan' => 'required',
-            'alamat_pelanggan' => 'required',
             'password' => 'required',
             'password_confirm' => 'required|same:password',
         ]);
         $pelanggan = new Pelanggan([
             'nama_pelanggan' => $request->nama_pelanggan,
             'email_pelanggan' => $request->email_pelanggan,
-            'kontak_pelanggan' => $request->kontak_pelanggan,
-            'alamat_pelanggan' => $request->alamat_pelanggan,
             'password' => Hash::make($request->password),
 
         ]);
@@ -55,7 +51,7 @@ class PelangganController extends Controller
         // die();
         if (Auth::guard('pelanggan')->attempt(['email_pelanggan' => $request->email_pelanggan, 'password' => $request->password])) {
             $request->session()->regenerate();
-            return redirect()->intended('/');
+            return redirect('/');
         }
 
         return back()->withErrors([

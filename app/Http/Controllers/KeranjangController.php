@@ -20,19 +20,19 @@ class KeranjangController extends Controller
        
     }
 
-    public function add_keranjang($id){
+    public function add_keranjang(Request $request){
         $keranjang = Keranjang::latest()
-                        ->where('id_produk', $id)
+                        ->where('id_produk', $request->id_produk)
                         ->where('id_pelanggan', Auth::guard('pelanggan')->id())->first();
         if($keranjang == null){
             $keranjang=new Keranjang([
-                'id_produk'=>$id,
-                'jumlah'=>1,
+                'id_produk'=>$request->id_produk,
+                'jumlah'=>$request->jumlah,
                 'id_pelanggan'=>Auth::guard('pelanggan')->id()
             ]);
             $keranjang->save();
         }else{
-            $keranjang->jumlah +=1;
+            $keranjang->jumlah +=$request->jumlah;
             $keranjang->save(); 
         }
         return redirect('keranjang');

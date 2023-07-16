@@ -11,11 +11,8 @@
                 <div class="author">
                   <a href="#">
                     <img class="avatar border-gray" src="../assets/img/mike.jpg" alt="...">
-                    <h5 class="title">Chet Faker</h5>
+                    <h5 class="title">{{Auth::guard('pelanggan')->user()->nama_pelanggan}}</h5>
                   </a>
-                  <p class="description">
-                    @chetfaker
-                  </p>
                 </div>
                 <p class="description text-center">
                   "I like the way you work it <br>
@@ -124,6 +121,11 @@
                     </div>
                   </div>
                 </form>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <a href="{{route('daftar_alamat')}}" class="btn btn-primary btn-round">Daftar Alamat</a>
+                </div>
               </div>
             </div>
           </div>

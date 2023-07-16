@@ -20,15 +20,23 @@
                         <p class="card-text" style="text-align: justify; font-size: 15px;">{{ $produk->deskripsi }}</p>
                         <div class=""  style="height: 36px; widht:55px;">
                             <label for="">Jumlah : </label>
-                            <input class="col-sm-1" type="number">
+                            <input class="col-sm-1" type="number" name="jumlah_produk">
                         </div>
                         <br>
                         <br>
                         <div class="row">
                             <div class="col-md-1">
-                                <a href="{{ route('add_keranjang', $produk->id_produk) }}" class="btn btn-primary">
-                                    <ion-icon name="cart-outline"></ion-icon>
-                                </a>
+                                @if (Auth::guard('pelanggan')->user() != null)
+                                <form action="{{ route('add_keranjang') }}" method="POST">
+                                    @csrf
+                                    @method('POST')
+                                    <input type="hidden" name="id_produk" value="{{ $produk->id_produk }}">
+                                    <input type="hidden" name="jumlah" value="1">
+                                    <button class="btn btn-primary" type="submit">
+                                        <ion-icon name="cart-outline"></ion-icon>
+                                    </button>
+                                </form>
+                            @endif
                             </div>
                             <br>
                             <div class="col-md-1">
@@ -67,3 +75,11 @@
     </div>
 </section>
 @include('template/footer')
+<script>
+    $(document).ready(function() {
+      $('input[name="jumlah_produk"]').on('change', function() {
+        var jumlah = $(this).val();
+        $('input[name="jumlah"]').not(this).val(jumlah);
+      });
+    });
+  </script>

@@ -8,14 +8,15 @@
                     <h5 class="card-title">Tambah Data Pembelian</h5>
                 </div>
                 <div class="card-body">
-                    <form action="{{route('add_stok_action')}}" method="PUT" enctype="multipart/form-data">
+                    <form action="{{route('add_stok_action')}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method("PUT")
+                        <input type="hidden" name="id_produk" value="{{$produk->id_produk}}">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>Produk</label>
-                                    <input type="text" class="form-control" value="{{$namaproduk}}" disabled>
+                                    <input type="text" class="form-control" value="{{$produk->nama_produk}}" disabled>
                                 </div>
                             </div>
                         </div>

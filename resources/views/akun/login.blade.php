@@ -24,7 +24,7 @@
             </div>
             <!-- password input -->
             <div class="form-outline mb-4">
-                <label>Password <span class="text-danger">*</span></label>
+                <label>Kata Sandi <span class="text-danger">*</span></label>
                 <input class="form-control" type="password" name="password" />
             </div>
             <!-- button login -->

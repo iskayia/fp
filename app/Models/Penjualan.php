@@ -31,5 +31,8 @@ class Penjualan extends Model
         return $this->belongsTo(Alamat::class, 'id_alamat');
     }
 
+    public function courier(){
+        return $this->belongsTo(Courier::class, 'courier_id');
+    }
  
 }

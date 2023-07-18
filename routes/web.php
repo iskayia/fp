@@ -48,16 +48,17 @@ Route::get('adm_profile', [UserController::class, 'adm_profile'])->name('adm_pro
 Route::get('/', [ProdukController::class, 'tampil_jual'])->name('index');
 Route::get('Produk', [ProdukController::class, 'Produk'])->name('Produk');
 Route::get('cari', [ProdukController::class, 'cari'])->name('cari');
-Route::get('rate', [ProdukController::class, 'rate'])->name('rate');
-Route::get('komentar', [ProdukController::class, 'komentar'])->name('komentar');
 
 Route::get('chart', [ChartController::class, 'chart'])->name('chart');
 
 Route::middleware(['auth:pelanggan'])->group(function () {
+    Route::get('komentar/{id}', [ProdukController::class, 'komentar'])->name('komentar');
+    Route::post('save_komentar', [ProdukController::class, 'save_komentar'])->name('save_komentar');
+
     Route::get('keranjang', [KeranjangController::class, 'keranjang'])->name('keranjang');
     Route::post('add_keranjang', [KeranjangController::class, 'add_keranjang'])->name('add_keranjang');
     Route::get('hapus_keranjang/{id}', [KeranjangController::class, 'hapus_keranjang'])->name('hapus_keranjang');
-    
+
     Route::get('detail_produk/{id}', [ProdukController::class, 'detail_produk'])->name('detail_produk');
     Route::get('beli', [ProdukController::class, 'beli'])->name('beli');
     Route::post('update_jumlah', [ProdukController::class, 'update_jumlah'])->name('update_jumlah');
@@ -71,7 +72,6 @@ Route::middleware(['auth:pelanggan'])->group(function () {
 
     Route::get('akun_saya', [PelangganController::class, 'akun_saya'])->name('akun_saya');
 
-    Route::get('daftar_alamat', [AlamatController::class, 'daftarAlamat'])->name('daftar_alamat');
     Route::get('tambah_alamat', [AlamatController::class, 'tambahAlamat'])->name('tambah_alamat');
     Route::post('save_alamat', [AlamatController::class, 'saveAlamat'])->name('save_alamat');
 });

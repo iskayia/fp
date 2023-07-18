@@ -30,6 +30,7 @@
                                 <th>No</th>
                                 <th>Supplier</th>
                                 <th>Produk</th>
+                                <th>Berat</th>
                                 <th>Stok</th>
                                 <th>Harga</th>
                                 <th>Gambar Produk</th>
@@ -45,13 +46,14 @@
                                         <td>{{ $no++ }}</td>
                                         <td>{{ $p->nama_supplier }}</td>
                                         <td>{{ $p->nama_produk }}</td>
+                                        <td>{{$p->berat}}gr</td>
                                         <td>{{ $p->stok }}</td>
                                         <td>{{ $p->harga_produk }}</td>
                                         <td>
                                             <img src="gambar/{{ $p->gambar_produk }}" width="100" height="100"
                                                 alt="{{ $p->gambar_produk }}">
                                         </td>
-                                        <td>{{ $p->deskripsi }}</td>
+                                        <td class="text-justify">{{ $p->deskripsi }}</td>
                                         <td>
                                             <div class="dropdown">
                                                 <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle"

@@ -44,6 +44,7 @@ class MiminController extends Controller
             'nama_produk' => 'required',
             'id_supplier' => 'required',
             'stok' => 'required',
+            'berat'=>'required',
             'harga_produk' => 'required',
             'gambar_produk' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'deskripsi' => 'required',
@@ -57,6 +58,7 @@ class MiminController extends Controller
             'nama_produk' => $request->nama_produk,
             'id_supplier' => $request->id_supplier,
             'stok' => $request->stok,
+            'berat'=>$request->berat,
             'harga_produk' => $request->harga_produk,
             'gambar_produk' => $gambar,
             'deskripsi' => $request->deskripsi
@@ -80,6 +82,7 @@ class MiminController extends Controller
             'nama_produk' => 'required',
             'id_supplier' => 'required',
             'stok' => 'required',
+            'berat' => 'required',
             'harga_produk' => 'required',
             'gambar_produk' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'deskripsi' => 'required',
@@ -101,6 +104,7 @@ class MiminController extends Controller
                 'nama_produk' => $request->nama_produk,
                 'id_supplier' => $request->id_supplier,
                 'stok' => $request->stok,
+                'berat' => $request->berat,
                 'harga_produk' => $request->harga_produk,
                 'gambar_produk' => $gambar,
                 'deskripsi' => $request->deskripsi
@@ -111,6 +115,7 @@ class MiminController extends Controller
                 'nama_produk' => $request->nama_produk,
                 'id_supplier' => $request->id_supplier,
                 'stok' => $request->stok,
+                'berat' => $request->berat,
                 'harga_produk' => $request->harga_produk,
                 'deskripsi' => $request->deskripsi
             ]);

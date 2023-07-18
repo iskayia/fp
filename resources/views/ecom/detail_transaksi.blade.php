@@ -46,9 +46,21 @@
                         </tr>
                         <tr>
                             <th></th>
+                            <td class="w-25 p-3">Tipe Pengambilan</td>
+                            <td>:</td>
+                            <td class="w-50 p-3">{{ $penjualan->tipe_pengambilan }}</td>
+                        </tr>
+                        <tr>
+                            <th></th>
                             <td class="w-25 p-3">Alamat</td>
                             <td>:</td>
                             <td class="w-50 p-3">{{ $penjualan->alamat->alamat }}</td>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <td class="w-25 p-3">Pengiriman</td>
+                            <td>:</td>
+                            <td class="w-50 p-3">{{ $penjualan->courier->courier_name }}</td>
                         </tr>
                     </table>
                 </div>

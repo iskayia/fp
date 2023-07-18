@@ -3,17 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Models\Alamat;
+use App\Models\Courier;
 use App\Models\Produk;
 use App\Models\Keranjang;
 use App\Models\Pembayaran;
 use App\Models\JenisPembayaran;
+use App\Models\Komentar;
 use App\Models\Pelanggan;
 use App\Models\Penjualan;
 use App\Models\ProdukPenjualan;
 use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 use Symfony\Contracts\Service\Attribute\Required;
+use DB;
 
 class ProdukController extends Controller
 {
@@ -27,7 +31,8 @@ class ProdukController extends Controller
 
     public function detail_produk($id){
         $produk= Produk::findOrFail($id);
-        return view('ecom/detail_produk',['produk'=>$produk]);
+        $komentar =Komentar::where('id_produk', '=', $id)->get();
+        return view('ecom/detail_produk',['produk'=>$produk,'komentar'=> $komentar]);
     }
 
     public function ecom_request(Request $request)
@@ -44,6 +49,10 @@ class ProdukController extends Controller
     public function tampil_jual()
     {
         $produk = Produk::latest()->get();
+        foreach($produk as &$p){
+            $rate = Komentar::where('id_produk', $p->id_produk)->avg('rate');
+            $p->rate=!empty($rate) ? number_format($rate, 1) : 0;
+        }
         return view('ecom/tampilan_jual', ['produk' => $produk]);
     }
 
@@ -54,8 +63,9 @@ class ProdukController extends Controller
             ->get();
         $jenis_pembayaran = JenisPembayaran::latest()->get();
         $pelanggan = Pelanggan::findOrFail(Auth::guard('pelanggan')->id());
+        $couriers= Courier::latest()->get();
 
-        return view('ecom/beli', ['keranjang' => $keranjang, 'jenis_pembayaran' => $jenis_pembayaran, 'pelanggan' => $pelanggan]);
+        return view('ecom/beli', ['keranjang' => $keranjang, 'jenis_pembayaran' => $jenis_pembayaran, 'pelanggan' => $pelanggan, 'couriers'=>$couriers]);
     }
 
     public function update_jumlah(Request $request) {
@@ -91,13 +101,16 @@ class ProdukController extends Controller
                     'id_penjualan' => $penjualan->id_penjualan,
                     'qty' => $k->jumlah
                 ]);
+                $produk =Produk::find($k->id_produk);
+                $produk->stok = $produk->stok - intval($k->jumlah);
+                $produk->save();
             }
 
             Keranjang::where('id_pelanggan', $pelanggan->id_pelanggan)->delete();
 
             Pembayaran::create([
                 'id_penjualan' => $penjualan->id_penjualan,
-                'id_status_pembayaran' => 1, //belum lunas
+                'status_pembayaran' =>'Menunggu Pembayaran', //belum lunas
                 'id_jenis_pembayaran' => $request->id_jenis_pembayaran,
                 'jumlah_pembayaran' => $jumlah_pembayaran
             ]);
@@ -111,16 +124,15 @@ class ProdukController extends Controller
         $id_produk = $request->id_produk;
         $jumlah = $request->jumlah;
         $produk =Produk::find($id_produk);
-        $produk->stok = $produk->stok - intval($jumlah);
-        $produk->save();
         $jenis_pembayaran = JenisPembayaran::latest()->get();
         $pelanggan = Pelanggan::findOrFail(Auth::guard('pelanggan')->id());
+        $couriers= Courier::latest()->get();
 
         //cek jumlah beli produk apakah lebih dari stok produk
         if ($request->jumlah > $produk->stok) {
             return redirect()->route('beli_langsung')->with('gagal', 'Jumlah pesanan melebihi batas stok produk');
         }
-        return view('ecom/beli_langsung', ['jumlah' => $jumlah, 'produk' => $produk, 'jenis_pembayaran' => $jenis_pembayaran, 'pelanggan' => $pelanggan]);
+        return view('ecom/beli_langsung', ['jumlah' => $jumlah, 'produk' => $produk, 'jenis_pembayaran' => $jenis_pembayaran, 'pelanggan' => $pelanggan, 'couriers'=>$couriers]);
     }
 
     public function bayar_langsung(Request $request)
@@ -128,7 +140,6 @@ class ProdukController extends Controller
         $pelanggan = Pelanggan::findOrFail(Auth::guard('pelanggan')->id());
         $request->validate([
             'id_produk' => 'required',
-            'id_alamat' => 'required',
             'jumlah' => 'required',
             'id_jenis_pembayaran' => 'required',
             'tipe_pengambilan' => 'required',
@@ -147,9 +158,12 @@ class ProdukController extends Controller
                 'id_penjualan' => $penjualan->id_penjualan,
                 'qty' => $request->jumlah
             ]);
+            $produk =Produk::find($request->id_produk);
+            $produk->stok = $produk->stok - intval($request->jumlah);
+            $produk->save();
             Pembayaran::create([
                 'id_penjualan' => $penjualan->id_penjualan,
-                'status_pembayaran' => 'Menunggu Pembayaran','Lunas',
+                'status_pembayaran' => 'Menunggu Pembayaran',
                 'id_jenis_pembayaran' => $request->id_jenis_pembayaran,
                 'jumlah_pembayaran' => $request->jumlah_pembayaran
             ]);
@@ -173,7 +187,7 @@ class ProdukController extends Controller
         $request->validate([
             'bukti_bayar'=>'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-        $gambar  = 'FP-'.time().'.'.$request->bukti_bayar->extension();
+        $gambar  = 'BB-'.time().'.'.$request->bukti_bayar->extension();
         $id_penjualan = $request->id_penjualan;
 
         $request->bukti_bayar->move(public_path('gambar'), $gambar);
@@ -188,6 +202,45 @@ class ProdukController extends Controller
         return view('ecom/list_transaksi', ['penjualan' => $penjualan]);
     }
 
+    public function checkOngkir(Request $data)
+    {
+        $url = "https://api.biteship.com/v1/orders";
+        $apiKey = env('BITESHIP_KEY');
+        // var_dump($apiKey);
+        $response = Http::withHeaders([
+            "Authorization" => $apiKey,
+            "Content-Type" => "application/json"
+        ])->post($url, $data);
+
+        // var_dump($data);
+
+        // Handle the response
+        if ($response->successful()) {
+            $order = $response->json();
+            // Process the order data
+            $price = $order['price'];
+            // ...
+            // var_dump($order);die();
+            // return response()->json([
+            //     "success" => true,
+            //     "price" => $price
+            // ]);
+
+            return $price;
+        } else {
+            $errorCode = $response->status();
+            $errorMessage = $response->body();
+            // var_dump($errorCode);
+            // var_dump($errorMessage);die();
+            // Handle the error
+            // ...
+            // return response()->json([
+            //     "error" => $errorMessage
+            // ], $errorCode);
+            return 0;
+        }
+    }
+
     public function cari(Request $request){
         if($request->has('cari')){
             $produk= Produk::where('nama_produk','LIKE','%'.$request->cari.'%')->get();
@@ -197,18 +250,39 @@ class ProdukController extends Controller
         return view('ecom/tampilan_jual',['produk'=>$produk]);
     }
 
-    public function rate(){
-        return view('ecom.tampilan_jual');
+    public function komentar($id){
+        $id_pelanggan = Auth::guard('pelanggan')->id();
+        
+        $produk_penjualan = ProdukPenjualan::where('id_penjualan', '=', $id)->get();
+        foreach($produk_penjualan as &$produk){
+            $komentar = Komentar::where('id_pelanggan','=',$id_pelanggan)
+                        ->where('id_produk','=',$produk->id_produk)
+                        ->where('id_penjualan','=',$produk->id_penjualan)->get();
+            $produk['sudah_komen'] = count($komentar) > 0;
+        }
+        return view('ecom.komentar')->with('produk_penjualan', $produk_penjualan);
     }
 
-    public function komentar(){
-        return view('ecom.komentar');
+    public function save_komentar(Request $request){
+        $request->validate([
+            'komentar'=>'required',
+            'rate'=>'required',
+        ]);
+        $id_pelanggan = Auth::guard('pelanggan')->id();
+        Komentar::create([
+                'komentar'=>$request->komentar,
+                'rate'=>$request->rate,
+                'id_pelanggan'=>$id_pelanggan,
+                'id_produk'=>$request->id_produk,
+                'id_penjualan'=>$request->id_penjualan
+
+        ]);
+        return redirect()->route('komentar', $request->id_penjualan)->with('success','data have been save!');
+
     }
 
     public function filter(Request $request)
     {
-       
-    
         return view('ecom.tampilan_jual');
     }
 

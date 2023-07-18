@@ -13,7 +13,7 @@
                         @csrf
                         @method('PUT')
                         <div class="row">
-                            <div class="col-md-5">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Status Pembayaran</label>
                                     <select class="form-control" id="status_pembayaran" name="status_pembayaran">
@@ -33,6 +33,10 @@
                                         <option value="Selesai">Selesai</option>
                                     </select>
                                 </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label>Bukti Bayar</label>
+                                <img src="{{asset('gambar/' . $penjualan->pembayaran->bukti_bayar)}}" alt="">
                             </div>
                         </div>
                         <div class="row">

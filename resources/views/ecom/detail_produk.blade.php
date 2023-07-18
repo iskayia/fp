@@ -57,16 +57,14 @@
                     <div class="card-body border-top">
                         <h4 class="text-center">Komentar</h4>
                         <div class="row">
+                            @foreach ($komentar as $komen)
                             <div class="col-md-12 border-top ">
-                                <label for="">Anonym</label>
-                                <i class="bi bi-star-fill" style="color: orange; text-size:8px;"></i><span class="portfolio-caption-subheading text-muted" style="font-size:9px;">3,5</span>
-                                <p> wah bagus</p>
+                                <label for="">{{$komen->pelanggan->nama_pelanggan}}</label>
+                                <i class="bi bi-star-fill" style="color: orange; text-size:8px;"></i>
+                                <span class="portfolio-caption-subheading text-muted" style="font-size:9px;">{{$komen->rate}}</span>
+                                <p>{{$komen->komentar}}</p>
                             </div>
-                            <div class="col-md-12 border-top ">
-                                <label for="">Anon</label>
-                                <i class="bi bi-star-fill" style="color: orange; text-size:8px;"></i><span class="portfolio-caption-subheading text-muted" style="font-size:9px;">4</span>
-                                <p> nice</p>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>

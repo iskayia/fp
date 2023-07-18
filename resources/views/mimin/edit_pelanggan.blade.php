@@ -39,7 +39,9 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>Alamat Pelanggan</label>
-                                    <input type="text" class="form-control" value="{{$pelanggan->alamat_pelanggan}}" name="alamat_pelanggan" placeholder="Alamat pelanggan" disabled>
+                                    @foreach ($pelanggan->alamat as $alamat )
+                                    <div>{{$alamat->alamat}}</div>
+                                @endforeach
                                 </div>
                             </div>
                         </div>

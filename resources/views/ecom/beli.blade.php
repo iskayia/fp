@@ -1,13 +1,81 @@
 @include('template/header')
 <script>
     function showAlamat() {
-        var tipe = $('#tipe_transaksi').val()
-        if (tipe == 'antar-produk') {
-            $('#alamat').show()
-        } else {
-            $('#alamat').hide()
+            var tipe = $('#tipe_pengambilan').val()
+            if (tipe == 'Dikirim ke alamat') {
+                $('#alamat').show()
+                $('#courier').show()
+                $('#ongkir').show()
+            } else {
+                $('#alamat').hide()
+                $('#courier').hide()
+                $('#ongkir').hide()
+            }
         }
-    }
+
+        function cekOngkir() {
+            var selectedOption = $('#courier_id option:selected');
+            var courierCode = selectedOption.data('courier_code');
+            var courierServiceCode = selectedOption.data('courier_service_code');
+            var selectedAlamat = $('#id_alamat option:selected');
+            var alamatPenerima = selectedAlamat.text();
+            var bagianAlamat = alamatPenerima.split(", ");
+            var kodePos = bagianAlamat[bagianAlamat.length - 1];
+            console.log(alamatPenerima);
+
+            // Buat objek data untuk dikirimkan ke endpoint cek ongkir
+            var items = []
+            // @foreach ($keranjang as $k)
+            //     var item = {
+            //         "id": {{ $k->id_keranjang }},
+            //         "name": {{ $k->produk->nama_produk }},
+            //         "image": "",
+            //         "description": "",
+            //         "value": {{ $k->produk->harga_produk }},
+            //         "quantity": 1,
+            //         "weight": {{ $k->produk->berat }}
+            //     }
+            //     items.push(item)
+            // @endforeach
+
+
+            var requestData {
+                "shipper_contact_name": "Fitri Parfum",
+                "shipper_contact_phone": "082134568856",
+                "origin_contact_name": "Fitri Parfum",
+                "origin_contact_phone": "082134568856",
+                "origin_address": "Jalan Blokeng RT 04 RW 03 Serdang Wetan Legok, Kabupaten Tangerang, Serdang Wetan, Kec. Legok, Kabupaten Tangerang, Banten 15820",
+                "origin_note": "",
+                "origin_postal_code": "15820",
+                "destination_contact_name": "nama penerima",
+                "destination_contact_phone": "088213565426",
+                "destination_address": alamatPenerima,
+                "destination_postal_code": kodePos,
+                "destination_note": "",
+                "courier_company": courierCode,
+                "courier_type": courierServiceCode,
+                "delivery_type": "now",
+                "order_note": "",
+                "metadata": [],
+                "items": items
+            }
+
+            // Lakukan pemanggilan Ajax ke endpoint cek ongkir
+            $.ajax({
+                url: '/api/cek_ongkir', // Ganti dengan URL endpoint yang sesuai
+                type: 'POST', // Sesuaikan dengan metode HTTP yang digunakan
+                data: requestData,
+                success: function(response) {
+                    // Handle respons sukses dari endpoint
+                    console.log(response);
+                    $('#ongkos_kirim').val(response.data)
+                },
+                error: function(xhr, status, error) {
+                    // Handle kesalahan pemanggilan endpoint
+                    console.error(error);
+                }
+            });
+        }
 </script>
 <section class="page-section " id="services" style="background-color:#FEFCF3; height:100%;">
     <div class="card-body">
@@ -88,16 +156,41 @@
 
                             </div>
                             <br>
-                            <div class="form-group">
+                            <div class="form-group" id="alamat">
                                 <label for="alamat_pelanggan">Alamat</label>
-                                <select class="form-control" name="id_alamat" id="">
+
+                                <select class="form-control" name="id_alamat" id="id_alamat">
                                     @foreach ($pelanggan->alamat as $alamat)
                                         <option value="{{ $alamat->id_alamat }}">{{ $alamat->alamat }}</option>
                                     @endforeach
                                 </select>
-
+                                <br>
                             </div>
-                            <br>
+                            <div class="form-group" id="courier">
+                                <label for="courier">Pilih Pengiriman</label>
+
+                                <select class="form-control" name="courier" id="courier_id" onclick="cekOngkir()">
+                                    <option value="">pilih pengiriman</option>
+                                    @foreach ($couriers as $courier)
+                                        <option value="{{ $courier->courier_id }}"
+                                            data-courier_code="{{ $courier->courier_code }}"
+                                            data-courier_service_code="{{ $courier->courier_service_code }}">
+                                            {{ $courier->courier_name }}</option>
+                                    @endforeach
+                                </select>
+                                <br>
+                            </div>
+                            <div class="form-group" id="ongkir">
+                                <label for="courier">Ongkir</label>
+                                <input class="form-control" type="text" value="0" name="ongkir"
+                                    id="ongkos_kirim" readonly>
+                                <br>
+                            </div>
+                            <div class="form-group">
+                                <label for="courier">Total</label>
+                                <input class="form-control" type="text" value="{{ $subtotal }}"
+                                    name="jumlah_pebayaran" id="jumlah_pembayaran" readonly>
+                            </div>
                             <div class="form-group">
                                 <p class="text-justify" style="font-size: small; color:grey; ">Harap dicatat bahwa
                                     pesanan tidak dapat diubah atau dibatalkan setelah diproses.
@@ -118,6 +211,7 @@
 @include('template/footer')
 <script>
     $(document).ready(function() {
+        
         showAlamat()
     })
 </script>

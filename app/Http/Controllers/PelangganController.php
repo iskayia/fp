@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Models\Alamat;
 use App\Models\Pelanggan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -68,8 +69,9 @@ class PelangganController extends Controller
     }
 
     public function akun_saya(){
-
-        return view('akun/akun_saya');
+        $id_pelanggan = Auth::guard('pelanggan')->id();
+        $daftar_alamat = Alamat::where('id_pelanggan', '=', $id_pelanggan)->get();
+        return view('akun.akun_saya')->with('daftar_alamat', $daftar_alamat);
     }
 
     public function pelanggan(){
@@ -87,14 +89,12 @@ class PelangganController extends Controller
             'nama_pelanggan' => 'required',
             'email_pelanggan' => 'required',
             'kontak_pelanggan' => 'required',
-            'alamat_pelanggan' => 'required'
         ]);
         $pelanggan= Pelanggan::find($id);
         $pelanggan->update([
             'nama_pelanggan' => $request->nama_pelanggan,
             'email_pelanggan' => $request->email_pelanggan,
             'kontak_pelanggan' => $request->kontak_pelanggan,
-            'alamat_pelanggan' => $request->alamat_pelanggan
         ]);
         return redirect()->route('pelanggan')->with('success','data have been save!');
 

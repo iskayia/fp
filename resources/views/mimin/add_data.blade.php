@@ -33,15 +33,21 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-md-3 px-1">
+              <div class="col-md-4 px-1">
                 <div class="form-group">
                   <label>Jumlah Produk</label>
                   <input type="number" class="form-control" placeholder="1" name="stok">
                 </div>
               </div>
+              <div class="col-md-4 px-1">
+                <div class="form-group">
+                  <label>Berat /pcs</label>
+                  <input type="number" class="form-control" placeholder="1" name="berat">
+                </div>
+              </div>
               <div class="col-md-4 pl-1">
                 <div class="form-group">
-                  <label for="">Harga</label>
+                  <label for="">Harga /pcs</label>
                   <input type="number" class="form-control" placeholder="1000" name="harga_produk">
                 </div>
               </div>

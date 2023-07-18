@@ -9,12 +9,6 @@ use Illuminate\Support\Facades\Auth;
 
 class AlamatController extends Controller
 {
-    public function daftarAlamat()
-    {
-        $id_pelanggan = Auth::guard('pelanggan')->id();
-        $daftar_alamat = Alamat::where('id_pelanggan', '=', $id_pelanggan)->get();
-        return view('akun.daftar_alamat')->with('daftar_alamat', $daftar_alamat);
-    }
 
     public function tambahAlamat()
     {

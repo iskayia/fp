@@ -16,7 +16,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>Produk</label>
-                                    <input type="text" class="form-control" value="{{$produk->nama_produk}}" disabled>
+                                    <input type="text" class="form-control" value="{{$produk->nama_produk}}" readonly>
                                 </div>
                             </div>
                         </div>

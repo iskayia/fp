@@ -133,7 +133,9 @@
                             
                         <div class="card-body">
                             <h6 class="card-title">{{ $p->nama_produk }}</h6>
-                            <i class="bi bi-star-fill" style="color: orange; text-size:8px;"></i><span class="portfolio-caption-subheading text-muted" style="font-size:9px;">3,5</span>
+                            <i class="bi bi-star-fill" style="color: orange; text-size:8px;"></i><span class="portfolio-caption-subheading text-muted" style="font-size:9px;">
+                            {{$p->rate}}
+                            </span>
                             <h6 class="card-text" style="color: orange; font-size:26px;"> Rp.{{ number_format($p->harga_produk) }}
                             </h6>
                             <p class="portfolio-caption-subheading text-muted" style="font-size: 9px;"> Stok : {{ $p->stok }}</p>                          

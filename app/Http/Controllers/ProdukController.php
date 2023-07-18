@@ -202,8 +202,28 @@ class ProdukController extends Controller
         return view('ecom/list_transaksi', ['penjualan' => $penjualan]);
     }
 
-    public function checkOngkir(Request $data)
+    public function checkOngkir(Request $request)
     {
+        $data = [
+            "shipper_contact_name" => "Fitri Parfum",
+            "shipper_contact_phone" => "082383542225",
+            "origin_contact_name" => "Fitri Parfum",
+            "origin_contact_phone" => "082383542225",
+            "origin_address" => "Jalan Blokeng RT 04 RW 03 Serdang Wetan Legok, Kabupaten Tangerang, Serdang Wetan, Kec. Legok, Kabupaten Tangerang, Banten 15820",
+            "origin_note" => "",
+            "origin_postal_code" => "15820",
+            "destination_contact_name" => $request->contact_name,
+            "destination_contact_phone" => $request->contact_phone,
+            "destination_address" => $request->address,
+            "destination_postal_code" => $request->postal_code,
+            "destination_note" =>  $request->note,
+            "courier_company" => $request->courier_code,
+            "courier_type" =>  $request->courier_service_code,
+            "delivery_type" => "now",
+            "order_note" => $request->note,
+            "metadata" => [],
+            "items" => $request->items
+        ];
         $url = "https://api.biteship.com/v1/orders";
         $apiKey = env('BITESHIP_KEY');
         // var_dump($apiKey);
@@ -213,32 +233,29 @@ class ProdukController extends Controller
         ])->post($url, $data);
 
         // var_dump($data);
+        // var_dump($response);
 
         // Handle the response
+        $price = 0;
+        $message = "";
+        $errorCode = "";
         if ($response->successful()) {
             $order = $response->json();
             // Process the order data
             $price = $order['price'];
-            // ...
-            // var_dump($order);die();
-            // return response()->json([
-            //     "success" => true,
-            //     "price" => $price
-            // ]);
-
-            return $price;
+            $message = 'success';
+            $errorCode = $response->status();
         } else {
             $errorCode = $response->status();
-            $errorMessage = $response->body();
-            // var_dump($errorCode);
-            // var_dump($errorMessage);die();
-            // Handle the error
-            // ...
-            // return response()->json([
-            //     "error" => $errorMessage
-            // ], $errorCode);
-            return 0;
+            $message = $response->body();
+            $price = 0;
         }
+        $data = [
+            'message' => $message,
+            'error_code' => $errorCode,
+            'price' => $price
+        ];
+        return response()->json($data, 200);
     }
 
     public function cari(Request $request){

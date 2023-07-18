@@ -13,69 +13,7 @@
             }
         }
 
-        function cekOngkir() {
-            var selectedOption = $('#courier_id option:selected');
-            var courierCode = selectedOption.data('courier_code');
-            var courierServiceCode = selectedOption.data('courier_service_code');
-            var selectedAlamat = $('#id_alamat option:selected');
-            var alamatPenerima = selectedAlamat.text();
-            var bagianAlamat = alamatPenerima.split(", ");
-            var kodePos = bagianAlamat[bagianAlamat.length - 1];
-            console.log(alamatPenerima);
-
-            // Buat objek data untuk dikirimkan ke endpoint cek ongkir
-            var items = []
-            // @foreach ($keranjang as $k)
-            //     var item = {
-            //         "id": {{ $k->id_keranjang }},
-            //         "name": {{ $k->produk->nama_produk }},
-            //         "image": "",
-            //         "description": "",
-            //         "value": {{ $k->produk->harga_produk }},
-            //         "quantity": 1,
-            //         "weight": {{ $k->produk->berat }}
-            //     }
-            //     items.push(item)
-            // @endforeach
-
-
-            var requestData {
-                "shipper_contact_name": "Fitri Parfum",
-                "shipper_contact_phone": "082134568856",
-                "origin_contact_name": "Fitri Parfum",
-                "origin_contact_phone": "082134568856",
-                "origin_address": "Jalan Blokeng RT 04 RW 03 Serdang Wetan Legok, Kabupaten Tangerang, Serdang Wetan, Kec. Legok, Kabupaten Tangerang, Banten 15820",
-                "origin_note": "",
-                "origin_postal_code": "15820",
-                "destination_contact_name": "nama penerima",
-                "destination_contact_phone": "088213565426",
-                "destination_address": alamatPenerima,
-                "destination_postal_code": kodePos,
-                "destination_note": "",
-                "courier_company": courierCode,
-                "courier_type": courierServiceCode,
-                "delivery_type": "now",
-                "order_note": "",
-                "metadata": [],
-                "items": items
-            }
-
-            // Lakukan pemanggilan Ajax ke endpoint cek ongkir
-            $.ajax({
-                url: '/api/cek_ongkir', // Ganti dengan URL endpoint yang sesuai
-                type: 'POST', // Sesuaikan dengan metode HTTP yang digunakan
-                data: requestData,
-                success: function(response) {
-                    // Handle respons sukses dari endpoint
-                    console.log(response);
-                    $('#ongkos_kirim').val(response.data)
-                },
-                error: function(xhr, status, error) {
-                    // Handle kesalahan pemanggilan endpoint
-                    console.error(error);
-                }
-            });
-        }
+        
 </script>
 <section class="page-section " id="services" style="background-color:#FEFCF3; height:100%;">
     <div class="card-body">
@@ -148,8 +86,7 @@
                             <div class="form-group">
                                 <label for="tipe_transaksi">Tipe Pemangambilan Produk</label>
 
-                                <select class="form-control" id="tipe_pengambilan" name="tipe_pengambilan"
-                                    onclick="showAlamat()">
+                                <select class="form-control" id="tipe_pengambilan" name="tipe_pengambilan">
                                     <option value="Ambil ke toko">Ambil ke Toko</option>
                                     <option value="Dikirim ke alamat">Dikirim ke Alamat</option>
                                 </select>
@@ -173,8 +110,8 @@
                                     <option value="">pilih pengiriman</option>
                                     @foreach ($couriers as $courier)
                                         <option value="{{ $courier->courier_id }}"
-                                            data-courier_code="{{ $courier->courier_code }}"
-                                            data-courier_service_code="{{ $courier->courier_service_code }}">
+                                            data-courier-code="{{ $courier->courier_code }}"
+                                            data-courier-service-code="{{ $courier->courier_service_code }}">
                                             {{ $courier->courier_name }}</option>
                                     @endforeach
                                 </select>
@@ -189,7 +126,7 @@
                             <div class="form-group">
                                 <label for="courier">Total</label>
                                 <input class="form-control" type="text" value="{{ $subtotal }}"
-                                    name="jumlah_pebayaran" id="jumlah_pembayaran" readonly>
+                                    name="jumlah_pembayaran" id="jumlah_pembayaran" readonly>
                             </div>
                             <div class="form-group">
                                 <p class="text-justify" style="font-size: small; color:grey; ">Harap dicatat bahwa
@@ -213,5 +150,77 @@
     $(document).ready(function() {
         
         showAlamat()
+        $('#tipe_pengambilan').change(function() {
+            var tipe = $('#tipe_pengambilan').val()
+            if (tipe == 'Dikirim ke alamat') {
+                $('#alamat').show()
+                $('#courier').show()
+                $('#ongkir').show()
+            } else {
+                $('#alamat').hide()
+                $('#courier').hide()
+                $('#ongkir').hide()
+                $('#jumlah_pembayaran').val({{$subtotal}})
+            }
+        })
+        $('#courier_id').change(function() {
+            // Mengambil data dari input
+            var selectedOption = $(this).find('option:selected');
+            var courierCode = selectedOption.data('courier-code');
+            var courierServiceCode = selectedOption.data('courier-service-code');
+
+            console.log("cek ongkir")
+            //var address = $('#id_alamat').find('option:selected').text()   
+            var selectedAlamat = $('#id_alamat option:selected');
+            var alamatPenerima = selectedAlamat.text();
+            var bagianAlamat = alamatPenerima.split(", ");
+            var kodePos = bagianAlamat[bagianAlamat.length - 1];         
+            var items = [];
+            @foreach ($keranjang as $k)
+            var item = {
+                id: {{ $k->produk->id_produk }},
+                name: "{{ $k->produk->nama_produk }}",
+                image: "",
+                description: "",
+                value: {{ $k->produk->harga_produk }},
+                quantity: {{ $k->jumlah }},
+                weight: {{ $k->jumlah * $k->produk->berat }}
+            };
+            items.push(item);
+            @endforeach
+            var requestData = {
+                contact_name: "fitri pelanggan",
+                contact_phone: "08872121",
+                address: alamatPenerima,
+                postal_code: kodePos,
+                "note": "",
+                "courier_code":courierCode,
+                "courier_service_code": courierServiceCode,
+                "items": items
+            }
+
+            // Mengirim permintaan ke API menggunakan AJAX
+            $.ajax({
+                url: '/api/cek_ongkir',
+                type: 'POST',
+                dataType: 'json',
+                data: requestData,
+                success: function(response) {
+                    console.log(response)
+                    if (response.error_code === 200) {
+                        // Memperbarui nilai input dengan harga yang diperoleh dari respons
+                        $('#ongkos_kirim').val(response.price);
+                       // $('#ongkir_text').val(response.price.toLocaleString());
+                       var total = parseInt($('#jumlah_pembayaran').val()) + parseInt(response.price);
+                       $('#jumlah_pembayaran').val(total)
+                    } else {
+                        console.log('Terjadi kesalahan: ' + response.message);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.log('Terjadi kesalahan: ' + error);
+                }
+            });
+        });
     })
 </script>

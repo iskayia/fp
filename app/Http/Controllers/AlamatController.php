@@ -28,7 +28,7 @@ class AlamatController extends Controller
             'id_pelanggan' => $id_pelanggan
         ]);
         $alamat->save();
-        return redirect()->route('daftar_alamat')->with('success','data have been save!');
+        return redirect()->route('akun_saya')->with('success','data have been save!');
     }
     public function getProvinces()
     {

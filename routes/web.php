@@ -71,7 +71,6 @@ Route::middleware(['auth:pelanggan'])->group(function () {
     Route::put('bayar_action', [ProdukController::class, 'bayar_action'])->name('bayar_action');
 
     Route::get('akun_saya', [PelangganController::class, 'akun_saya'])->name('akun_saya');
-
     Route::get('tambah_alamat', [AlamatController::class, 'tambahAlamat'])->name('tambah_alamat');
     Route::post('save_alamat', [AlamatController::class, 'saveAlamat'])->name('save_alamat');
 });

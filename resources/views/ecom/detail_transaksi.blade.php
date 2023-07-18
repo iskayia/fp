@@ -50,6 +50,7 @@
                             <td>:</td>
                             <td class="w-50 p-3">{{ $penjualan->tipe_pengambilan }}</td>
                         </tr>
+                        @if (isset($penjualan->alamat->alamat) && $penjualan->tipe_pengambilan == 'Dikirim ke alamat')
                         <tr>
                             <th></th>
                             <td class="w-25 p-3">Alamat</td>
@@ -62,6 +63,8 @@
                             <td>:</td>
                             <td class="w-50 p-3">{{ $penjualan->courier->courier_name }}</td>
                         </tr>
+                        @endif
+                       
                     </table>
                 </div>
                 <br>

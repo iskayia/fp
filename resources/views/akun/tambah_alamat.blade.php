@@ -172,17 +172,21 @@
                         }
 
                         $('#villageSelect').html(options);
-                        var provinsi = $('#provinceSelect option:selected').text();
-                        var kota = $('#citySelect option:selected').text();
-                        var kecamatan = $('#districtSelect option:selected').text();
-                        var kelurahan = $('#villageSelect option:selected').text();
-                        $('#alamat').val(kelurahan + ", " + kecamatan + ", " + kota + ", " +
-                            provinsi);
+                        
                     }
                 });
             } else {
                 $('#villageSelect').html('<option value="">Pilih Kelurahan</option>');
             }
         });
+
+        $('#villageSelect').change(function(){
+            var provinsi = $('#provinceSelect option:selected').text();
+            var kota = $('#citySelect option:selected').text();
+            var kecamatan = $('#districtSelect option:selected').text();
+            var kelurahan = $('#villageSelect option:selected').text();
+            $('#alamat').val(kelurahan + ", " + kecamatan + ", " + kota + ", " +
+                provinsi);
+        })
     });
 </script>

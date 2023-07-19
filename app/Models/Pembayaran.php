@@ -10,7 +10,7 @@ class Pembayaran extends Model
     use HasFactory;
     protected $table = 'pembayaran';
     protected $primaryKey='id_pembayaran';
-    protected $fillable=['id_jenis_pembayaran','status', 'id_penjualan', 'status_pembayaran', 'jumlah_pembayaran'];
+    protected $fillable=['id_jenis_pembayaran','status', 'id_penjualan', 'status_pembayaran', 'jumlah_pembayaran', 'ongkir'];
 
     public function jenis_pembayaran() {
         return $this->belongsTo(JenisPembayaran::class, 'id_jenis_pembayaran'); 

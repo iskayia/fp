@@ -63,6 +63,12 @@
                             <td>:</td>
                             <td class="w-50 p-3">{{ $penjualan->courier->courier_name }}</td>
                         </tr>
+                        <tr>
+                            <th></th>
+                            <td class="w-25 p-3">Ongkos Kirim</td>
+                            <td>:</td>
+                            <td class="w-50 p-3">{{ number_format( $penjualan->pembayaran->ongkir) }}</td>
+                        </tr>
                         @endif
                        
                     </table>
@@ -111,8 +117,14 @@
     </div>
     <br>
     <div class="card-body" style="text-align: right; margin-bottom: 30px">
+        @if ($penjualan->pembayaran->status_pembayaran == 'Menunggu Pembayaran' && $penjualan->pembayaran->id_jenis_pembayaran == '2')
+        <a href="{{ route('bayar', $penjualan->id_penjualan) }}" class="btn btn-primary btn-lg no-print"> 
+            <i class="fa fa-credit-card" aria-hidden="true"></i>Bayar</a>
+        @endif
+        @if ($penjualan->pembayaran->id_jenis_pembayaran != '2' && $penjualan->pembayaran->id_jenis_pembayaran != '1')
         <a href="{{ route('bayar', $penjualan->id_penjualan) }}" class="btn btn-primary btn-lg no-print"> 
             <i class="fa fa-credit-card" aria-hidden="true"></i> Upload Bukti Bayar</a>
+        @endif
         <a href="#" onclick="printDiv('detailtransaksi');" class="btn btn-primary btn-lg no-print">
             <i class="fa fa-print" aria-hidden="true"></i> Print
         </a>

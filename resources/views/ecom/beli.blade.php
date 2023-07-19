@@ -97,6 +97,7 @@
                                 <label for="alamat_pelanggan">Alamat</label>
 
                                 <select class="form-control" name="id_alamat" id="id_alamat">
+                                    <option value="">Pilih Alamat</option>
                                     @foreach ($pelanggan->alamat as $alamat)
                                         <option value="{{ $alamat->id_alamat }}">{{ $alamat->alamat }}</option>
                                     @endforeach
@@ -119,7 +120,7 @@
                             </div>
                             <div class="form-group" id="ongkir">
                                 <label for="courier">Ongkir</label>
-                                <input class="form-control" type="text" value="0" name="ongkir"
+                                <input class="form-control" type="number" value="0" name="ongkir"
                                     id="ongkos_kirim" readonly>
                                 <br>
                             </div>
@@ -211,7 +212,7 @@
                         // Memperbarui nilai input dengan harga yang diperoleh dari respons
                         $('#ongkos_kirim').val(response.price);
                        // $('#ongkir_text').val(response.price.toLocaleString());
-                       var total = parseInt($('#jumlah_pembayaran').val()) + parseInt(response.price);
+                       var total = parseInt({{$subtotal}}) + parseInt(response.price);
                        $('#jumlah_pembayaran').val(total)
                     } else {
                         console.log('Terjadi kesalahan: ' + response.message);

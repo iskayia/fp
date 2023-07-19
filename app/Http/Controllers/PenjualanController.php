@@ -14,8 +14,7 @@ class PenjualanController extends Controller
     public function penjualan()
     {
         $penjualan = Penjualan::latest()->get();
-        $pembayaran = Pembayaran::latest()->get();
-        return view('mimin/penjualan')->with('penjualan', $penjualan)->with('pembayaran', $pembayaran);
+        return view('mimin/penjualan')->with('penjualan', $penjualan);
     }
 
     public function edit_penjualan($id)

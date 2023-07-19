@@ -82,15 +82,17 @@ class ProdukController extends Controller
         $pelanggan = Pelanggan::findOrFail(Auth::guard('pelanggan')->id());
         $jumlah_pembayaran = 0;
         $request->validate([
-            'id_alamat' => 'required',
             'id_jenis_pembayaran' => 'required',
             'tipe_pengambilan' => 'required',
         ]);
+
+
         $penjualan = Penjualan::create([
             'id_alamat' => $request->id_alamat,
+            'courier_id' => $request->courier,
             'tgl_penjualan' => date('Y-m-d'),
             'tipe_pengambilan' => $request->tipe_pengambilan,
-            'id_pelanggan' => $pelanggan->id_pelanggan
+            'id_pelanggan' => $pelanggan->id_pelanggan,
         ]);
 
         if ($penjualan) {
@@ -107,13 +109,33 @@ class ProdukController extends Controller
             }
 
             Keranjang::where('id_pelanggan', $pelanggan->id_pelanggan)->delete();
-
+            if($request->tipe_pengambilan == 'Dikirim ke alamat') {
+                $jumlah_pembayaran += $request->ongkir;
+            }
             Pembayaran::create([
                 'id_penjualan' => $penjualan->id_penjualan,
+                'ongkir' => $request->ongkir,
                 'status_pembayaran' =>'Menunggu Pembayaran', //belum lunas
                 'id_jenis_pembayaran' => $request->id_jenis_pembayaran,
                 'jumlah_pembayaran' => $jumlah_pembayaran
             ]);
+            if($request->id_jenis_pembayaran == 2) {
+                $midtrans = new MidtransController();
+                $body = [
+                    "transaction_details" => [
+                        "order_id" => $penjualan->id_penjualan,
+                        "gross_amount" => $jumlah_pembayaran
+                    ],
+                    "usage_limit" => 1
+                ];
+    
+                
+                $payment_url = $midtrans->createTransactionMidtrans($body);
+                if($payment_url != "") {
+                    return redirect()->away($payment_url)->with('new_tab', true);
+                    
+                }
+            }
         }
 
         return view('ecom/detail_transaksi', ['pelanggan' => $pelanggan, 'penjualan' => $penjualan]);
@@ -147,6 +169,7 @@ class ProdukController extends Controller
         ]);
         $penjualan = Penjualan::create([
             'id_alamat' => $request->id_alamat,
+            'courier_id' => $request->courier,
             'tgl_penjualan' => date('Y-m-d'),
             'tipe_pengambilan' => $request->tipe_pengambilan,
             'id_pelanggan' => $pelanggan->id_pelanggan
@@ -163,14 +186,34 @@ class ProdukController extends Controller
             $produk->save();
             Pembayaran::create([
                 'id_penjualan' => $penjualan->id_penjualan,
+                'ongkir' => $request->ongkir,
                 'status_pembayaran' => 'Menunggu Pembayaran',
                 'id_jenis_pembayaran' => $request->id_jenis_pembayaran,
                 'jumlah_pembayaran' => $request->jumlah_pembayaran
             ]);
         }
 
+        if($request->id_jenis_pembayaran == 2) {
+            $midtrans = new MidtransController();
+            $body = [
+                "transaction_details" => [
+                    "order_id" => $penjualan->id_penjualan,
+                    "gross_amount" => $request->jumlah_pembayaran
+                ],
+                "usage_limit" => 1
+            ];
+
+            
+            $payment_url = $midtrans->createTransactionMidtrans($body);
+            if($payment_url != "") {
+                return redirect()->away($payment_url)->with('new_tab', true);
+                
+            }
+        }
+
         return view('ecom/detail_transaksi', ['pelanggan' => $pelanggan, 'penjualan' => $penjualan]);
     }
+
 
     public function detail_transaksi($id)
     {
@@ -180,6 +223,11 @@ class ProdukController extends Controller
 
     public function bayar($id){
         $penjualan = Penjualan::findOrFail($id);
+        if($penjualan->pembayaran->id_jenis_pembayaran == 2) {
+            $midtrans= new MidtransController();
+            $payment_link = $midtrans->getPaymentLinkUrl($id);
+            return redirect()->away($payment_link)->with('new_tab', true);
+        }
         return view('ecom/bayar', ['penjualan' => $penjualan]);
     }
 

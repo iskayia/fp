@@ -76,4 +76,10 @@ class AlamatController extends Controller
 
         return response()->json($villages);
     }
+
+    public function hapus_alamat($id){
+        $alamat= Alamat::find($id);
+        $alamat->delete();
+        return redirect('akun_saya')->with('success', 'data berhasil dihapus!');
+    }
 }

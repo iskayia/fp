@@ -59,12 +59,14 @@
                         <h5 class="card-title">Edit Profile</h5>
                     </div>
                     <div class="card-body">
-                        <form>
+                        <form action="{{route('update_akun', Auth::guard('pelanggan')->id() )}}" method="POST">
+                            @csrf
+                            @method('put')
                             <div class="row">
                                 <div class="col-md-12 px-1">
                                     <div class="form-group">
-                                        <label>Username</label>
-                                        <input type="text" class="form-control" placeholder="Nama"
+                                        <label>Nama Pelanggan</label>
+                                        <input type="text" class="form-control" placeholder="Nama" name="nama_pelanggan"
                                             value="{{ Auth::guard('pelanggan')->user()->nama_pelanggan }}">
                                     </div>
                                 </div>
@@ -74,7 +76,7 @@
                                 <div class="col-md-12 px-1">
                                     <div class="form-group">
                                         <label>Email</label>
-                                        <input type="email" class="form-control" placeholder="Email"
+                                        <input type="email" class="form-control" placeholder="Email" name="email_pelanggan"
                                             value="{{ Auth::guard('pelanggan')->user()->email_pelanggan }}">
                                     </div>
                                 </div>
@@ -84,7 +86,7 @@
                                 <div class="col-md-12 pl-1">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Kontak</label>
-                                        <input type="text" class="form-control" placeholder="Kontak"
+                                        <input type="text" class="form-control" placeholder="Kontak" name="kontak_pelanggan"
                                             value="{{ Auth::guard('pelanggan')->user()->kontak_pelanggan }}">
                                     </div>
                                 </div>

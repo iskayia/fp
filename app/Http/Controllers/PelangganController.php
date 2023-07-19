@@ -74,6 +74,21 @@ class PelangganController extends Controller
         return view('akun.akun_saya')->with('daftar_alamat', $daftar_alamat);
     }
 
+    public function update_akun(Request $request, $id){
+        $request->validate([
+            'nama_pelanggan' => 'required',
+            'email_pelanggan' => 'required',
+            'kontak_pelanggan' => 'required',
+        ]);
+        $pelanggan= Pelanggan::find($id);
+        $pelanggan->update([
+            'nama_pelanggan' => $request->nama_pelanggan,
+            'email_pelanggan' => $request->email_pelanggan,
+            'kontak_pelanggan' => $request->kontak_pelanggan,
+        ]);
+        return redirect()->route('akun_saya')->with('success','data have been save!');
+    }
+
     public function pelanggan(){
         $pelanggan= Pelanggan::all();
         return view('mimin/pelanggan')->with('pelanggan',$pelanggan);

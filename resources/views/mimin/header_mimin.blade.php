@@ -104,52 +104,55 @@
                             <p>Beranda</p>
                         </a>
                     </li>
-                    <div class="border-top">
-                        <button class="dropdown-btn no-border">
-                            Master Data
-                            <i class="fa fa-caret-down"></i>
-                        </button>
-                        <div class="dropdown-container">
-                            <li>
-                                <a href="{{ route('data') }}">
-                                    <i class="nc-icon nc-box"></i>
-                                    <p>Data Produk</p>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ route('supplier') }}">
-                                    <i class="nc-icon nc-badge"></i>
-                                    <p>Supplier</p>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ route('pelanggan') }}">
-                                    <i class="nc-icon nc-badge"></i>
-                                    <p>Pelanggan</p>
-                                </a>
-                            </li>
-                        </div>
+                    
+                   @if (Auth::user()->level == 'Admin')
+                   <div class="border-top">
+                    <button class="dropdown-btn no-border">
+                        Master Data
+                        <i class="fa fa-caret-down"></i>
+                    </button>
+                    <div class="dropdown-container">
+                        <li>
+                            <a href="{{ route('data') }}">
+                                <i class="nc-icon nc-box"></i>
+                                <p>Data Produk</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('supplier') }}">
+                                <i class="nc-icon nc-badge"></i>
+                                <p>Supplier</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('pelanggan') }}">
+                                <i class="nc-icon nc-badge"></i>
+                                <p>Pelanggan</p>
+                            </a>
+                        </li>
                     </div>
+                </div>
 
-                    <div class="border-top">
-                        <button class="dropdown-btn no-border">Transaksi
-                            <i class="fa fa-caret-down"></i>
-                        </button>
-                        <div class="dropdown-container">
-                            <li>
-                                <a href="{{ route('pembelian') }}">
-                                    <i class="nc-icon nc-cloud-download-93"></i>
-                                    <p>Pembelian</p>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ route('penjualan') }}">
-                                    <i class="nc-icon nc-cloud-upload-94"></i>
-                                    <p>Penjualan</p>
-                                </a>
-                            </li>
-                        </div>
+                <div class="border-top">
+                    <button class="dropdown-btn no-border">Transaksi
+                        <i class="fa fa-caret-down"></i>
+                    </button>
+                    <div class="dropdown-container">
+                        <li>
+                            <a href="{{ route('pembelian') }}">
+                                <i class="nc-icon nc-cloud-download-93"></i>
+                                <p>Pembelian</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('penjualan') }}">
+                                <i class="nc-icon nc-cloud-upload-94"></i>
+                                <p>Penjualan</p>
+                            </a>
+                        </li>
                     </div>
+                </div>
+                   @endif
                     <div class="border-top">
                         <li>
                             <a href="{{ route('laporan') }}">

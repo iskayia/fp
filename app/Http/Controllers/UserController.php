@@ -50,6 +50,14 @@ class UserController extends Controller
         return view('mimin.adm_profile')->with('user',$user);
     }
 
+    public function logout_adm(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/login_adm');
+    }
+
     // public function authenticate_admin(Request $request)
     // {   
     //     $request->validate([

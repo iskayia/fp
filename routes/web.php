@@ -43,6 +43,7 @@ Route::post('login_adm', [UserController::class, 'login_adm_action'])->name('log
 Route::get('register_adm', [UserController::class, 'register_adm'])->name('register_adm');
 Route::post('register_adm', [UserController::class, 'register_adm_action'])->name('register_adm.action');
 Route::get('adm_profile', [UserController::class, 'adm_profile'])->name('adm_profile');
+Route::get('logout_adm', [UserController::class, 'logout_adm'])->name('logout_adm');
 
 
 Route::get('/', [ProdukController::class, 'tampil_jual'])->name('index');
@@ -71,6 +72,7 @@ Route::middleware(['auth:pelanggan'])->group(function () {
     Route::put('bayar_action', [ProdukController::class, 'bayar_action'])->name('bayar_action');
 
     Route::get('akun_saya', [PelangganController::class, 'akun_saya'])->name('akun_saya');
+    Route::put('update_akun/{id}',[PelangganController::class,'update_akun'])->name('update_akun');
     Route::get('tambah_alamat', [AlamatController::class, 'tambahAlamat'])->name('tambah_alamat');
     Route::post('save_alamat', [AlamatController::class, 'saveAlamat'])->name('save_alamat');
     Route::delete('hapus_alamat/{id}',[AlamatController::class,'hapus_alamat'])->name('hapus_alamat');

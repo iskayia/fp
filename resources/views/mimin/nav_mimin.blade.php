@@ -10,7 +10,7 @@
                 <span class="navbar-toggler-bar bar3"></span>
               </button>
             </div>
-            <a class="navbar-brand" href="{{route('mimin')}}">Admin</a>
+            <a class="navbar-brand" href="{{route('mimin')}}">{{Auth::user()->username}}</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -37,8 +37,8 @@
                   </p>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                  <a class="dropdown-item" href="{{route('adm_profile')}}">Profil</a>
-                  <a class="dropdown-item" href="#">Keluar</a>
+                  {{-- <a class="dropdown-item" href="{{route('adm_profile')}}">Profil</a> --}}
+                  <a class="dropdown-item" href="{{route('logout_adm')}}">Keluar</a>
                 </div>
               </li>
             </ul>

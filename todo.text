@@ -1,4 +1,6 @@
-perbaikan :
--power point
--web pimpinan
--diusahakan menggunakan midtrans
+skenario:
+-beranda pelanggan
+- lihat produk, klik tambah keranjang
+-regis dan login
+-melakukan pembelian beli_langsung
+-melakukan masuk keranjang beli

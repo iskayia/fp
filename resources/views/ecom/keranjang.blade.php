@@ -102,7 +102,7 @@
 
                 </table>
 
-                <a href="{{route('beli')}}" class="btn btn-danger" style="float:right">Beli Sekarang</a>
+                <a href="{{route('beli')}}" class="btn btn-danger" style="float:right">Beli Semua</a>
 
 
             </div>

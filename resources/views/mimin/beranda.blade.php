@@ -51,12 +51,19 @@
   new Chart(ctx, {
     type: 'bar',
     data: {
-      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-      datasets: [{
-        label: '# of Votes',
-        data: [12, 19, 3, 5, 2, 3],
-        borderWidth: 1
-      }]
+      labels: ['januari', 'februari', 'maret', 'april', 'mei', 'juni','juli','agustus','september','oktober','november','desember'],
+      datasets: [
+        {
+          label: 'Penjualan',
+          data: [{{$januari}}, {{$februari}},{{$maret}},{{$april}},{{$mei}},{{$juni}},{{$juli}},{{$agustus}},{{$september}},{{$oktober}},{{$november}},{{$desember}}],
+          borderWidth: 1
+        },
+        {
+          label: 'Pembelian',
+          data: [{{$januari_pembelian}}, {{$februari_pembelian}},{{$maret_pembelian}},{{$april_pembelian}},{{$mei_pembelian}},{{$juni_pembelian}},{{$juli_pembelian}},{{$agustus_pembelian}},{{$september_pembelian}},{{$oktober_pembelian}},{{$november_pembelian}},{{$desember_pembelian}}],
+          borderWidth: 1
+        }
+      ]
     },
     options: {
       scales: {

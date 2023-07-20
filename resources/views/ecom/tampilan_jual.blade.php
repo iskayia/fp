@@ -18,6 +18,10 @@
     });
 
 </script>
+
+@php
+    $user= Auth::guard('pelanggan')->user();
+@endphp
 <!-- Masthead-->
 <header class="">
     <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
@@ -127,10 +131,10 @@
                     <div class="card  image-container">
                         <img class="img-fluid img-thumbnail" style="object-fit: cover;height: 300px;widht:300px;"
                             src="gambar/{{ $p->gambar_produk }}" alt="Produk Fitri Parfume">
-
-                          <a href="{{ route('add_keranjang', $p->id_produk) }}"
+                           
+                          {{-- <a href="{{ route('add_keranjang', $p->id_produk) }}"
                             class="btn btn-primary image-button">Tambah ke Kerajang<ion-icon name="cart-outline"></ion-icon></a>
-                            
+                             --}}
                         <div class="card-body">
                             <h6 class="card-title">{{ $p->nama_produk }}</h6>
                             <i class="bi bi-star-fill" style="color: orange; text-size:8px;"></i><span class="portfolio-caption-subheading text-muted" style="font-size:9px;">
@@ -140,8 +144,13 @@
                             </h6>
                             <p class="portfolio-caption-subheading text-muted" style="font-size: 9px;"> Stok : {{ $p->stok }}</p>                          
                         </div>
-                            <button type="button" class="btn btn-primary image-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                              Tambah ke Keranjang</button>
+                        @if ($user != NULL)
+                        <button type="button" class="btn btn-primary image-button" >
+                          Tambah ke Keranjang</button>
+                        @else
+                        <button type="button" class="btn btn-primary image-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            Tambah ke Keranjang</button>
+                        @endif
                     </div>
 
                 </div>

@@ -50,8 +50,6 @@ Route::get('/', [ProdukController::class, 'tampil_jual'])->name('index');
 Route::get('Produk', [ProdukController::class, 'Produk'])->name('Produk');
 Route::get('cari', [ProdukController::class, 'cari'])->name('cari');
 
-Route::get('chart', [ChartController::class, 'chart'])->name('chart');
-
 Route::middleware(['auth:pelanggan'])->group(function () {
     Route::get('komentar/{id}', [ProdukController::class, 'komentar'])->name('komentar');
     Route::post('save_komentar', [ProdukController::class, 'save_komentar'])->name('save_komentar');

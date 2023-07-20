@@ -7,6 +7,7 @@ use App\Models\Produk;
 use App\Models\Supplier;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class MiminController extends Controller
@@ -14,13 +15,90 @@ class MiminController extends Controller
     public function mimin()
     {
         $produk = Produk::latest()->where('stok', '<', 10)->get();
-
-        return view('mimin/beranda')->with('produk', $produk);
+        //penjualan
+        $januari = count(DB::table('penjualan')
+            ->whereRaw("DATE_FORMAT(created_at, '%Y') = YEAR(CURDATE()) and  DATE_FORMAT(created_at, '%m') = '01'")
+            ->get());
+        $februari = count(DB::table('penjualan')
+            ->whereRaw("DATE_FORMAT(created_at, '%Y') = YEAR(CURDATE()) and  DATE_FORMAT(created_at, '%m') = '02'")
+            ->get());
+        $maret =  count(DB::table('penjualan')
+            ->whereRaw("DATE_FORMAT(created_at, '%Y') = YEAR(CURDATE()) and  DATE_FORMAT(created_at, '%m') = '03'")
+            ->get());
+        $april =  count(DB::table('penjualan')
+            ->whereRaw("DATE_FORMAT(created_at, '%Y') = YEAR(CURDATE()) and  DATE_FORMAT(created_at, '%m') = '04'")
+            ->get());
+        $mei =  count(DB::table('penjualan')
+            ->whereRaw("DATE_FORMAT(created_at, '%Y') = YEAR(CURDATE()) and  DATE_FORMAT(created_at, '%m') = '05'")
+            ->get());
+        $juni =  count(DB::table('penjualan')
+            ->whereRaw("DATE_FORMAT(created_at, '%Y') = YEAR(CURDATE()) and  DATE_FORMAT(created_at, '%m') = '06'")
+            ->get());
+        $juli = count(DB::table('penjualan')
+            ->whereRaw("DATE_FORMAT(created_at, '%Y') = YEAR(CURDATE()) and  DATE_FORMAT(created_at, '%m') = '07'")
+            ->get());
+        $agustus =  count(DB::table('penjualan')
+            ->whereRaw("DATE_FORMAT(created_at, '%Y') = YEAR(CURDATE()) and  DATE_FORMAT(created_at, '%m') = '08'")
+            ->get());
+        $september =  count(DB::table('penjualan')
+            ->whereRaw("DATE_FORMAT(created_at, '%Y') = YEAR(CURDATE()) and  DATE_FORMAT(created_at, '%m') = '09'")
+            ->get());
+        $oktober =  count(DB::table('penjualan')
+            ->whereRaw("DATE_FORMAT(created_at, '%Y') = YEAR(CURDATE()) and  DATE_FORMAT(created_at, '%m') = '10'")->get());
+        $november =  count(DB::table('penjualan')
+            ->whereRaw("DATE_FORMAT(created_at, '%Y') = YEAR(CURDATE()) and  DATE_FORMAT(created_at, '%m') = '11'")
+            ->get());
+        $desember =  count(DB::table('penjualan')
+            ->whereRaw("DATE_FORMAT(created_at, '%Y') = YEAR(CURDATE()) and  DATE_FORMAT(created_at, '%m') = '12'")
+            ->get());
+            
+        //pembelian
+        $januari_pembelian = count(DB::table('pembelian')
+            ->whereRaw("DATE_FORMAT(created_at, '%Y') = YEAR(CURDATE()) and  DATE_FORMAT(created_at, '%m') = '01'")
+            ->get());
+        $februari_pembelian = count(DB::table('pembelian')
+            ->whereRaw("DATE_FORMAT(created_at, '%Y') = YEAR(CURDATE()) and  DATE_FORMAT(created_at, '%m') = '02'")
+            ->get());
+        $maret_pembelian =  count(DB::table('pembelian')
+            ->whereRaw("DATE_FORMAT(created_at, '%Y') = YEAR(CURDATE()) and  DATE_FORMAT(created_at, '%m') = '03'")
+            ->get());
+        $april_pembelian =  count(DB::table('pembelian')
+            ->whereRaw("DATE_FORMAT(created_at, '%Y') = YEAR(CURDATE()) and  DATE_FORMAT(created_at, '%m') = '04'")
+            ->get());
+        $mei_pembelian =  count(DB::table('pembelian')
+            ->whereRaw("DATE_FORMAT(created_at, '%Y') = YEAR(CURDATE()) and  DATE_FORMAT(created_at, '%m') = '05'")
+            ->get());
+        $juni_pembelian =  count(DB::table('pembelian')
+            ->whereRaw("DATE_FORMAT(created_at, '%Y') = YEAR(CURDATE()) and  DATE_FORMAT(created_at, '%m') = '06'")
+            ->get());
+        $juli_pembelian = count(DB::table('pembelian')
+            ->whereRaw("DATE_FORMAT(created_at, '%Y') = YEAR(CURDATE()) and  DATE_FORMAT(created_at, '%m') = '07'")
+            ->get());
+        $agustus_pembelian =  count(DB::table('pembelian')
+            ->whereRaw("DATE_FORMAT(created_at, '%Y') = YEAR(CURDATE()) and  DATE_FORMAT(created_at, '%m') = '08'")
+            ->get());
+        $september_pembelian =  count(DB::table('pembelian')
+            ->whereRaw("DATE_FORMAT(created_at, '%Y') = YEAR(CURDATE()) and  DATE_FORMAT(created_at, '%m') = '09'")
+            ->get());
+        $oktober_pembelian =  count(DB::table('pembelian')
+            ->whereRaw("DATE_FORMAT(created_at, '%Y') = YEAR(CURDATE()) and  DATE_FORMAT(created_at, '%m') = '10'")->get());
+        $november_pembelian =  count(DB::table('pembelian')
+            ->whereRaw("DATE_FORMAT(created_at, '%Y') = YEAR(CURDATE()) and  DATE_FORMAT(created_at, '%m') = '11'")
+            ->get());
+        $desember_pembelian =  count(DB::table('pembelian')
+            ->whereRaw("DATE_FORMAT(created_at, '%Y') = YEAR(CURDATE()) and  DATE_FORMAT(created_at, '%m') = '12'")
+            ->get());
+        
+        return view('mimin/beranda')->with('produk', $produk)
+            ->with('januari', $januari)->with('februari', $februari)->with('maret', $maret)->with('april', $april)
+            ->with('mei', $mei)->with('juni', $juni)->with('juli', $juli)->with('agustus', $agustus)->with('september', $september)->with('oktober', $oktober)
+            ->with('november', $november)->with('desember', $desember)
+            ->with('januari_pembelian', $januari_pembelian)->with('februari_pembelian', $februari_pembelian)->with('maret_pembelian', $maret_pembelian)->with('april_pembelian', $april_pembelian)
+            ->with('mei_pembelian', $mei_pembelian)->with('juni_pembelian', $juni_pembelian)->with('juli_pembelian', $juli_pembelian)->with('agustus_pembelian', $agustus_pembelian)->with('september_pembelian', $september_pembelian)->with('oktober_pembelian', $oktober_pembelian)
+            ->with('november_pembelian', $november_pembelian)->with('desember_pembelian', $desember_pembelian);
     }
 
-    public function chart()
-    {
-    }
+
 
     public function data()
     {
@@ -44,7 +122,7 @@ class MiminController extends Controller
             'nama_produk' => 'required',
             'id_supplier' => 'required',
             'stok' => 'required',
-            'berat'=>'required',
+            'berat' => 'required',
             'harga_produk' => 'required',
             'gambar_produk' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'deskripsi' => 'required',
@@ -58,7 +136,7 @@ class MiminController extends Controller
             'nama_produk' => $request->nama_produk,
             'id_supplier' => $request->id_supplier,
             'stok' => $request->stok,
-            'berat'=>$request->berat,
+            'berat' => $request->berat,
             'harga_produk' => $request->harga_produk,
             'gambar_produk' => $gambar,
             'deskripsi' => $request->deskripsi

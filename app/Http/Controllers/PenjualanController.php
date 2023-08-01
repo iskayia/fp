@@ -42,6 +42,30 @@ class PenjualanController extends Controller
         return redirect()->route('penjualan')->with('success', 'data have been save!');
     }
 
+    public function update_status_penjualan(Request $request){
+        $transaction_status = $request->transaction_status;
+        $order_id = $request->order_id;
+        $parts = explode("-", $order_id);
+        $id = $parts[0];
+        $penjualan = Penjualan::findOrFail($id);
+        $pembayaran = Pembayaran::findOrFail($penjualan->pembayaran->id_pembayaran);
+        if($transaction_status == 'capture' || $transaction_status == 'settlement'){
+            $pembayaran->status_pembayaran = 'Lunas';
+            $pembayaran->save();
+        } else if ($transaction_status == 'deny' || $transaction_status == 'expire' || $transaction_status == 'cancel') {
+             //
+             $penjualan->status_transaksi='Pesanan Dibatalkan';
+             $penjualan->save();
+        }
+
+        $data = [
+            'message' => 'success',
+            'order_id' => $order_id
+        ];
+    
+        return response()->json($data, 200);
+    }
+
     public function hapus_penjualan($id)
     {
         $penjualan = Penjualan::find($id);

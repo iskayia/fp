@@ -99,6 +99,12 @@ class MiminController extends Controller
     }
 
 
+    public function add_stok($id)
+    {
+        $produk = Produk::findorFail($id);
+        return view('mimin/add_stok', ['produk' => $produk]);
+    }
+
 
     public function data()
     {
@@ -218,13 +224,6 @@ class MiminController extends Controller
         }
         return view('mimin/data', ['produk' => $produk]);
     }
-
-    public function add_stok($id)
-    {
-        $produk = Produk::findorFail($id);
-        return view('mimin/add_stok', ['produk' => $produk]);
-    }
-
 
     public function add_stok_action(Request $request)
     {

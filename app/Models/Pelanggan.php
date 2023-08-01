@@ -12,7 +12,7 @@ class Pelanggan extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
     protected $table = 'pelanggan';
     protected $primaryKey='id_pelanggan';
-    protected $fillable= ['nama_pelanggan','email_pelanggan','kontak_pelanggan','password'];
+    protected $fillable= ['nama_pelanggan','email_pelanggan','kontak_pelanggan','password' ,'id_alamat'];
 
     public function alamat()
     {

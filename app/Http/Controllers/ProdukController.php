@@ -246,7 +246,7 @@ class ProdukController extends Controller
     }
     public function list_transaksi()
     {
-        $penjualan = Penjualan::latest()->get();
+        $penjualan = Penjualan::where('id_pelanggan', Auth::guard('pelanggan')->id())->get();
         return view('ecom/list_transaksi', ['penjualan' => $penjualan]);
     }
 

@@ -1,8 +1,3 @@
-skenario:
--beranda pelanggan
-- lihat produk, klik tambah keranjang
--regis dan login
--melakukan pembelian beli_langsung
--melakukan masuk keranjang dengan beli semua
-- pilih make midtrans dulu.
-- nanti pake yang
+update :
+- list transaksi pada pelanggan  masih aneh
+
